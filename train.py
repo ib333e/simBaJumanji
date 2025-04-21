@@ -1,5 +1,6 @@
 import jax
 import jax.numpy as jnp
+import numpy as np
 import optax
 from omegaconf import OmegaConf, DictConfig
 from jumanji.training.agents.base import Agent
@@ -16,6 +17,10 @@ from jumanji.training.networks.actor_critic import ActorCriticNetworks
 from jumanji.training.timer import Timer
 from jumanji.training.types import TrainingState
 from typing import Dict, Tuple
+
+import json
+import os
+import matplotlib.pyplot as plt
 
 cfg_a2c = OmegaConf.create({
     "seed": 0,
@@ -171,6 +176,42 @@ def epoch_function(training_state: TrainingState) -> Tuple[TrainingState, Dict]:
     return training_state, metrics
 epoch_fn = jax.pmap(epoch_function, axis_name="devices")
 
+def track_and_dump_metrics(epoch, eval_metrics, train_metrics, filename="metrics.json"):
+    if os.path.exists(filename):
+        with open(filename, "r") as f:
+            data = json.load(f)
+    else:
+        data = {
+            "epochs": [],
+            "returns": [],
+            "total_steps": [],
+            "total_time": [],
+        }
+    
+    # Extract metrics
+    returns = float(eval_metrics["episode_return"])
+    eval_time = float(eval_metrics["time"])
+    train_time = float(train_metrics["time"])
+    
+    # Calculate step count for this epoch
+    steps_this_epoch = cfg.env.training.n_steps * cfg.env.training.total_batch_size * cfg.env.training.num_learner_steps_per_epoch
+    
+    # Update running totals
+    total_steps = steps_this_epoch if epoch == 0 else (data["total_steps"][-1] + steps_this_epoch if data["total_steps"] else steps_this_epoch)
+    total_time = eval_time + train_time if epoch == 0 else (data["total_time"][-1] + eval_time + train_time if data["total_time"] else eval_time + train_time)
+    
+    # Add to data
+    data["epochs"].append(epoch)
+    data["returns"].append(returns)
+    data["total_steps"].append(total_steps)
+    data["total_time"].append(total_time)
+    
+    # Save to file
+    with open(filename, "w") as f:
+        json.dump(data, f, indent=2)
+    
+    return data
+
 for epoch in range(cfg.env.training.num_epochs):
     # Eval
     key, eval_key = jax.random.split(key)
@@ -180,6 +221,8 @@ for epoch in range(cfg.env.training.num_epochs):
         jax.block_until_ready(eval)
         metrics = utils.first_from_device(eval)
     print("Epoch", epoch, "Evaluation:", metrics)
+    eval_metrics = metrics
+    # probably dump to json here
 
     # Train
     with train_timer:
@@ -187,3 +230,71 @@ for epoch in range(cfg.env.training.num_epochs):
         jax.block_until_ready((state, train_metrics))
         metrics = utils.first_from_device(train_metrics)
     print("Epoch", epoch, "Train:", metrics)
+    train_metrics = metrics
+
+    track_and_dump_metrics(epoch=epoch, eval_metrics=eval_metrics, train_metrics=train_metrics, filename=f"{cfg.agent}_{cfg.env.name}.json")
+    training_state = state
+
+def plot_metrics(metrics_file="metrics.json", save_dir="./plots", window_size=5):
+    # Create save directory if it doesn't exist
+    os.makedirs(save_dir, exist_ok=True)
+    
+    # Load metrics data
+    with open(metrics_file, "r") as f:
+        data = json.load(f)
+    
+    # Extract data
+    epochs = data["epochs"]
+    returns = data["returns"]
+    total_steps = data["total_steps"]
+    total_time = data["total_time"]
+    
+    # Calculate moving average for smoother curves
+    # Using a rolling window to calculate average returns
+    def moving_average(data, window_size):
+        if len(data) < window_size:
+            return data  # Return original if not enough data points
+        
+        averages = []
+        for i in range(len(data) - window_size + 1):
+            window_avg = np.mean(data[i:i+window_size])
+            averages.append(window_avg)
+        
+        # Pad the beginning to match original length
+        padding = [averages[0]] * (window_size - 1)
+        return padding + averages
+        
+    avg_returns = moving_average(returns, window_size)
+
+    # Create figure with two subplots
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+    # Plot average returns vs steps
+    ax1.plot(total_steps, avg_returns, marker='o', label='Average Return')
+    ax1.plot(total_steps, returns, alpha=0.3, linestyle='--', label='Raw Return')
+    ax1.set_xlabel('Total Steps')
+    ax1.set_ylabel('Return')
+    ax1.set_title(f'Average Return (Window={window_size}) vs Training Steps')
+    ax1.grid(True)
+    ax1.legend()
+
+    # Plot average returns vs time
+    ax2.plot(total_time, avg_returns, marker='o', color='orange', label='Average Return')
+    ax2.plot(total_time, returns, alpha=0.3, linestyle='--', color='coral', label='Raw Return')
+    ax2.set_xlabel('Total Time (seconds)')
+    ax2.set_ylabel('Return')
+    ax2.set_title(f'Average Return (Window={window_size}) vs Training Time')
+    ax2.grid(True)
+    ax2.legend()
+
+    # Adjust layout and save
+    plt.tight_layout()
+    plot_path = os.path.join(save_dir, "performance_plots.png")
+    plt.savefig(plot_path)
+    plt.close()
+
+    print(f"Plots saved to {plot_path}")
+
+    return fig
+
+plot_metrics(metrics_file=f"{cfg.agent}_{cfg.env.name}.json", save_dir="./plots")
