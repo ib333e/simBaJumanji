@@ -21,6 +21,7 @@ from typing import Dict, Tuple
 import json
 import os
 import matplotlib.pyplot as plt
+from tqdm import trange
 
 cfg_a2c = OmegaConf.create({
     "seed": 0,
@@ -212,7 +213,7 @@ def track_and_dump_metrics(epoch, eval_metrics, train_metrics, filename="metrics
     
     return data
 
-for epoch in range(cfg.env.training.num_epochs):
+for epoch in trange(cfg.env.training.num_epochs):
     # Eval
     key, eval_key = jax.random.split(key)
     
@@ -220,7 +221,6 @@ for epoch in range(cfg.env.training.num_epochs):
         eval = stochastic_eval.run_evaluation(training_state.params_state, eval_key)
         jax.block_until_ready(eval)
         metrics = utils.first_from_device(eval)
-    print("Epoch", epoch, "Evaluation:", metrics)
     eval_metrics = metrics
     # probably dump to json here
 
@@ -229,7 +229,6 @@ for epoch in range(cfg.env.training.num_epochs):
         state, train_metrics = epoch_fn(training_state)
         jax.block_until_ready((state, train_metrics))
         metrics = utils.first_from_device(train_metrics)
-    print("Epoch", epoch, "Train:", metrics)
     train_metrics = metrics
 
     track_and_dump_metrics(epoch=epoch, eval_metrics=eval_metrics, train_metrics=train_metrics, filename=f"{cfg.agent}_{cfg.env.name}.json")
