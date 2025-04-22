@@ -62,6 +62,12 @@ class PPOAgent(A2CAgent):
         self.ppo_epochs = ppo_epochs
         self.max_grad_norm = max_grad_norm
 
+        # Compile rollout once (self is static)
+       #self.rollout = jax.jit(self.rollout, static_argnums=(0,))
+
+        # Compile run_epoch end-to-end
+        #self.run_epoch = jax.jit(self.run_epoch, static_argnums=(0,))
+
     # Same as vanilla
     def init_params(self, key: chex.PRNGKey) -> ParamsState:
         actor_key, critic_key = jax.random.split(key)
@@ -80,6 +86,7 @@ class PPOAgent(A2CAgent):
         )
         return params_state
     
+    @functools.partial(jax.jit, static_argnums=(0,))
     def run_epoch(self, training_state: TrainingState) -> Tuple[TrainingState, Dict]:
         if not isinstance(training_state.params_state, ParamsState):
             raise TypeError(
@@ -88,13 +95,13 @@ class PPOAgent(A2CAgent):
             )
         
         acting_state, data = self.rollout(
-            policy_params=training_state.params_state.params.actor,
-            acting_state=training_state.acting_state,
+            training_state.params_state.params.actor,
+            training_state.acting_state,
         )
         
         advantages, returns = self.compute_gae(
-            params=training_state.params_state.params,
-            data=data
+            training_state.params_state.params,
+            data
         )
 
         def run_ppo_epoch(carry, _):
@@ -153,7 +160,8 @@ class PPOAgent(A2CAgent):
             "clip_fraction": jnp.array(0.0),
         }
     
-    def compute_gae(self, params: ActorCriticParams, data: Transition) -> Tuple[chex.Array, chex.Array]:
+    @functools.partial(jax.jit, static_argnums=(0,))
+    def _jitted_compute_gae(self, params: ActorCriticParams, data: Transition) -> Tuple[chex.Array, chex.Array]:
         """Compute gae and returns."""
         value_apply = self.actor_critic_networks.value_network.apply
         
@@ -188,7 +196,11 @@ class PPOAgent(A2CAgent):
         
         return advantages, returns
     
-    def ppo_loss(
+    def compute_gae(self,params,data):
+        return self._jitted_compute_gae(params, data)
+
+    @functools.partial(jax.jit, static_argnums=(0,))
+    def _jitted_ppo_loss(
             self,
             params: ActorCriticParams,
             old_params: ActorCriticParams,
@@ -255,6 +267,9 @@ class PPOAgent(A2CAgent):
 
         return total_loss, metrics
     
+    def ppo_loss(self, params, old_params, data, advantages, returns, key):
+        return self._jitted_ppo_loss(params,old_params,data,advantages,returns,key)
+    
     def make_policy(
             self,
             policy_params: hk.Params,
@@ -263,6 +278,7 @@ class PPOAgent(A2CAgent):
         policy_network = self.actor_critic_networks.policy_network
         parametric_action_distribution = self.actor_critic_networks.parametric_action_distribution
 
+        @jax.jit
         def policy(
                 observation: Any, key: chex.PRNGKey
         ) -> Tuple[chex.Array, Tuple[chex.Array, chex.Array]]:
@@ -282,7 +298,7 @@ class PPOAgent(A2CAgent):
             return action, (log_prob, logits)
         
         return policy
-    
+    @functools.partial(jax.jit, static_argnums=(0,))
     def rollout(
             self,
             policy_params: hk.Params,
