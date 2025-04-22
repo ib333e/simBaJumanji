@@ -202,18 +202,22 @@ class PPOAgent(A2CAgent):
         policy_network = self.actor_critic_networks.policy_network
         value_network = self.actor_critic_networks.value_network
 
-        current_logits = jax.vmap(policy_network.apply, in_axes=(None,0))(
+        # need to flatten the actions to match logits
+        # this is only for tetris: flattened_index = column * num_rotations + rotation
+        num_rotations = 4  # Based on your environment
+        flattened_actions = data.action[..., 0] * num_rotations + data.action[..., 1]
+        
+        # Get current logits
+        current_logits = jax.vmap(self.actor_critic_networks.policy_network.apply, in_axes=(None, 0))(
             params.actor, data.observation
         )
-        current_log_probs = jax.vmap(parametric_action_distribution.log_prob)(
-            current_logits, data.action
+        
+        # Calculate log probs using flattened actions
+        current_log_probs = jax.vmap(self.actor_critic_networks.parametric_action_distribution.log_prob)(
+            current_logits, flattened_actions
         )
-        old_logits = jax.vmap(policy_network.apply, in_axes=(None,0))(
-            old_params.actor, data.observation
-        )
-        old_log_probs = jax.vmap(parametric_action_distribution.log_prob)(
-            old_logits, data.action
-        )
+
+        old_log_probs = data.log_prob
         ratios = jnp.exp(current_log_probs - old_log_probs)
 
         surrogate1 = jnp.multiply(ratios, advantages)
@@ -222,7 +226,7 @@ class PPOAgent(A2CAgent):
 
         current_values = jax.vmap(value_network.apply, in_axes=(None, 0))(
             params.critic, data.observation
-        ).squeeze(-1)
+        )
         value_loss = jnp.mean(jnp.square(returns - current_values))
 
         entropy = jnp.mean(

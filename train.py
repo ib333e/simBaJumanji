@@ -222,7 +222,7 @@ for epoch in trange(cfg.env.training.num_epochs):
         jax.block_until_ready(eval)
         metrics = utils.first_from_device(eval)
     eval_metrics = metrics
-    # probably dump to json here
+  
 
     # Train
     with train_timer:
