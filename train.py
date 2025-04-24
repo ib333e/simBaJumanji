@@ -80,16 +80,16 @@ cfg = OmegaConf.create({
             "greedy_eval_total_batch_size": 1024,
         },
         "ppo": {
-            "normalize_advantage": True,
+            "normalize_advantage": False,
             "num_minibatches": 4,
-            "ppo_epochs": 5,
+            "ppo_epochs": 8,
             "discount_factor": 0.9,
             "gae_lambda": 0.95,
-            "l_td": 0.5,
+            "l_td": 1.0,
             "l_en": 0.01,
             "max_grad_norm": 0.5,
             "learning_rate": 3e-4,
-            "clip_epsilon": 0.2,
+            "clip_epsilon": 0.1,
         },
     },
     "agent": "ppo"
@@ -137,41 +137,31 @@ def make_network_cnn(
     
             mu_t = hk.get_state("mu_t", x.shape, init=jnp.zeros)
             var_t = hk.get_state("var_t", x.shape, init=jnp.ones)
-            
-            # flatten them into vectors
-            flat_x = jnp.reshape(x, (x.shape[0], -1))
-            flat_mu = jnp.reshape(mu_t, (mu_t.shape[0], -1))
-            flat_var = jnp.reshape(var_t, (var_t.shape[0], -1))
 
             def norm(o, mu, var):
                 return jnp.divide(o - mu, jnp.sqrt((var**2) + self.eps))
 
             def train_fn(_):
-                if isinstance(timestep, jnp.ndarray):
-                    timestep_broadcast = timestep[:, None]
-                else:
-                    timestep_broadcast = timestep
 
                 timestep_scalar = timestep[0] if isinstance(timestep, jnp.ndarray) and timestep.size > 0 else timestep
 
                 def first(_):
-                    return flat_x
+                    return x
                 
                 def rest(_):
-                    delta = flat_x - flat_mu
-                    new_mu = flat_mu + delta / timestep_broadcast
-                    new_var = ((timestep_broadcast-1) / timestep_broadcast) * ((flat_var**2) + (delta**2)/timestep_broadcast) 
-                    hk.set_state("mu_t", jnp.reshape(new_mu, shape))
-                    hk.set_state("var_t", jnp.reshape(new_var, shape))
-                    return norm(flat_x, new_mu, new_var)
+                    delta = x - mu_t
+                    new_mu = mu_t + delta / timestep_scalar
+                    new_var = ((timestep_scalar-1) / timestep_scalar) * ((var_t**2) + (delta**2)/timestep_scalar) 
+                    hk.set_state("mu_t", new_mu)
+                    hk.set_state("var_t", new_var)
+                    return norm(x, new_mu, new_var)
 
                 normalized_input = jax.lax.cond(timestep_scalar==0, first, rest, operand=None)
-                new_obs = jnp.reshape(normalized_input, x.shape)
-                return new_obs# don't forget to reshape it
+                return normalized_input# don't forget to reshape it
              
             def eval_fn(_):
-                norm_input = norm(flat_x, flat_mu, flat_var)
-                return jnp.reshape(norm_input, x.shape)
+                norm_input = norm(x, mu_t, var_t)
+                return norm_input
             new_obs = jax.lax.cond(
                 is_training,
                 train_fn, 
@@ -400,6 +390,10 @@ def track_and_dump_metrics(epoch, eval_metrics, train_metrics, filename="metrics
     
     return data
 
+# in memory could speed things up
+data = {"epochs": [], "returns": [], "total_steps": [], "total_time": []}
+eval_every = 5
+save_every = 10
 for epoch in trange(cfg.env.training.num_epochs):
     # Eval
     key, eval_key = jax.random.split(key)
@@ -410,17 +404,17 @@ for epoch in trange(cfg.env.training.num_epochs):
         jax.block_until_ready(eval)
         metrics = utils.first_from_device(eval)
     eval_metrics = metrics
-    print("we can eval")
 
     # Train
     IS_TRAINING = True
     with train_timer:
-        print("gonna start training")
         state, train_metrics = epoch_fn(training_state)
         jax.block_until_ready((state, train_metrics))
         metrics = utils.first_from_device(train_metrics)
     train_metrics = metrics
-    print("should be able to train")
+
+    data["epochs"].append(epoch)
+    data["returns"].append()
     track_and_dump_metrics(epoch=epoch, eval_metrics=eval_metrics, train_metrics=train_metrics, filename=f"{cfg.agent}_{cfg.env.name}.json")
     training_state = state
 
