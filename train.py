@@ -2,28 +2,31 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 import optax
+import functools
+import chex
 from omegaconf import OmegaConf, DictConfig
 from jumanji.training.agents.base import Agent
 from jumanji.training.agents.a2c import A2CAgent
 from agents.ppo_agent import PPOAgent
 from jumanji.env import Environment
-from jumanji.environments import Tetris
+from jumanji.environments.packing.tetris.env import Observation, Tetris
 from jumanji.training import utils
 from jumanji.training.setup_train import (
     setup_env, setup_evaluators, setup_training_state
 )
-import jumanji.training.networks as networks
-from jumanji.training.networks.actor_critic import ActorCriticNetworks
+from jumanji.training.networks.tetris.actor_critic import make_actor_critic_networks_tetris
+from jumanji.training.networks.parametric_distribution import FactorisedActionSpaceParametricDistribution
+import haiku as hk
+from jumanji.training.networks.actor_critic import ActorCriticNetworks, FeedForwardNetwork
 from jumanji.training.timer import Timer
 from jumanji.training.types import TrainingState
-from typing import Dict, Tuple
-
+from typing import Dict, Tuple, Sequence
 import json
 import os
 import matplotlib.pyplot as plt
 from tqdm import trange
 
-cfg_a2c = OmegaConf.create({
+cfg = OmegaConf.create({
     "seed": 0,
     "env": {
         "name": "tetris",
@@ -56,7 +59,7 @@ cfg_a2c = OmegaConf.create({
     "agent": "a2c"
 })
 
-cfg = OmegaConf.create({
+cfg_ppo = OmegaConf.create({
     "seed": 0,
     "env": {
         "name": "tetris",
@@ -77,16 +80,16 @@ cfg = OmegaConf.create({
             "greedy_eval_total_batch_size": 1024,
         },
         "ppo": {
-            "normalize_advantage": True,
+            "normalize_advantage": False,
             "num_minibatches": 4,
-            "ppo_epochs": 5,
+            "ppo_epochs": 8,
             "discount_factor": 0.9,
             "gae_lambda": 0.95,
-            "l_td": 0.5,
+            "l_td": 1.0,
             "l_en": 0.01,
             "max_grad_norm": 0.5,
             "learning_rate": 3e-4,
-            "clip_epsilon": 0.2,
+            "clip_epsilon": 0.1,
         },
     },
     "agent": "ppo"
@@ -97,17 +100,148 @@ cfg = OmegaConf.create({
 key, init_key = jax.random.split(jax.random.PRNGKey(cfg.seed))
 env = setup_env(cfg=cfg)
 
+
+# Modified make_network method to include SimBa Changes, 
+def make_network_cnn(
+    conv_num_channels: int,
+    tetromino_layers: Sequence[int],
+    head_layers: Sequence[int],
+    time_limit: int,
+    critic: bool,
+    num_residual_blocks: int = 2,
+) -> FeedForwardNetwork:
+    class ResidualFF(hk.Module):
+        def __init__(self, hidden_dim: int, name=None):
+            super().__init__(name=name)
+            self.hidden_dim = hidden_dim
+
+        def __call__(self, x: jnp.ndarray) -> jnp.ndarray:
+            # pre layer norm
+            y = hk.LayerNorm(axis=-1, create_scale=True, create_offset=True)(x)
+            # inverted bottle neck MLP
+            y = hk.Linear(4* self.hidden_dim)(y)
+            y = jax.nn.relu(y)
+            y = hk.Linear(self.hidden_dim)(y)
+            # residual
+            return x + y
+        
+    def network_fn(observation: Observation) -> chex.Array:
+        eps = 1e-6
+        ### Taking the RSNorm 
+        # the grid
+        grid = observation.grid.astype(jnp.float32)[..., None]
+        mean_g = jnp.mean(grid, axis=(1,2,3), keepdims=True)
+        stdev_g = jnp.sqrt(jnp.var(grid, axis=(1,2,3), keepdims=True) + eps)
+        grid_norm = (grid - mean_g) / stdev_g
+
+        # the tetromino
+        tet = observation.tetromino.astype(jnp.float32)[..., None]
+        mean_tet = jnp.mean(tet, axis=(1,2,3), keepdims=True)
+        stdev_tet = jnp.sqrt(jnp.var(tet, axis=(1,2,3), keepdims=True) + eps)
+        tet_norm = (tet - mean_tet) / stdev_tet
+
+        grid_net = hk.Sequential(
+            [
+                hk.Conv2D(conv_num_channels, (3, 5), (1, 1)),
+                jax.nn.relu,
+                hk.Conv2D(conv_num_channels, (3, 5), (2, 1)),
+                jax.nn.relu,
+                hk.Conv2D(conv_num_channels, (3, 5), (2, 1)),
+                jax.nn.relu,
+                hk.Conv2D(conv_num_channels, (3, 3), (2, 1)),
+                jax.nn.relu,
+            ]
+        )
+        grid_embeddings = grid_net(grid_norm)  # [B, 2, 10, 64]
+        grid_embeddings = jnp.transpose(grid_embeddings, [0, 2, 1, 3])  # [B, 10, 2, 64]
+        grid_embeddings = jnp.reshape(
+            grid_embeddings, [*grid_embeddings.shape[:2], -1]
+        )  # [B, 10, 128]
+
+
+        tetromino_net = hk.Sequential(
+            [
+                hk.Flatten(),
+                hk.nets.MLP(tetromino_layers, activate_final=True),
+            ]
+        )
+        tetromino_embeddings = tetromino_net(tet_norm)
+        tetromino_embeddings = jnp.tile(
+            tetromino_embeddings[:, None], (grid_embeddings.shape[1], 1)
+        )
+        norm_step_count = observation.step_count / time_limit
+        norm_step_count = jnp.tile(norm_step_count[:, None, None], (grid_embeddings.shape[1], 1))
+
+        embedding = jnp.concatenate(
+            [grid_embeddings, tetromino_embeddings, norm_step_count], axis=-1
+        )  # [B, 10, 145]
+
+        # apply ResidualFF blocks
+        D = embedding.shape[-1]
+        block = lambda x: ResidualFF(D)(x)
+        embedding = jax.vmap(
+            lambda x_t: functools.reduce(lambda h, _: block(h), range(num_residual_blocks), x_t), in_axes=1, out_axes=1
+        )(embedding)
+        
+        
+        # post layer normalization
+        embedding = hk.LayerNorm(axis=-1, create_scale=True, create_offset=True)(embedding)
+
+        if critic:
+            embedding = jnp.sum(embedding, axis=-2)  # [B, 145]
+            value = hk.nets.MLP((*head_layers, 1))(embedding)  # [B, 1]
+            return jnp.squeeze(value, axis=-1)  # [B]
+        else:
+            num_rotations = observation.action_mask.shape[-2]
+            logits = hk.nets.MLP((*head_layers, num_rotations))(embedding)  # [B, 10, 4]
+            logits = jnp.transpose(logits, [0, 2, 1])  # [B, 4, 10]
+            masked_logits = jnp.where(
+                observation.action_mask, logits, jnp.finfo(jnp.float32).min
+            ).reshape(observation.action_mask.shape[0], -1)
+            return masked_logits  # [B, 40]
+
+    init, apply = hk.without_apply_rng(hk.transform(network_fn))
+    return FeedForwardNetwork(init=init, apply=apply)
+
 def setup_actor_critic_networks(cfg: DictConfig, env: Environment) -> ActorCriticNetworks:
     if cfg.env.name == "tetris":
         assert isinstance(env.unwrapped, Tetris)
-        actor_critic_networks = networks.make_actor_critic_networks_tetris(
-            tetris=env.unwrapped,
-            conv_num_channels=cfg.env.network.conv_num_channels,
-            tetromino_layers=cfg.env.network.tetromino_layers,
-            head_layers=cfg.env.network.head_layers,
+        tetris = env.unwrapped
+        conv_num_channels=cfg.env.network.conv_num_channels
+        tetromino_layers=cfg.env.network.tetromino_layers
+        head_layers=cfg.env.network.head_layers
+
+        parametric_action_distribution = FactorisedActionSpaceParametricDistribution(
+            action_spec_num_values=np.asarray(tetris.action_spec.num_values)
         )
-    
-    return actor_critic_networks
+
+        policy_network = make_network_cnn(
+            conv_num_channels=conv_num_channels,
+            tetromino_layers=tetromino_layers,
+            head_layers=head_layers,
+            time_limit=tetris.time_limit,
+            critic=False,
+        )
+        value_network = make_network_cnn(
+            conv_num_channels=conv_num_channels,
+            tetromino_layers=tetromino_layers,
+            head_layers=head_layers,
+            time_limit=tetris.time_limit,
+            critic=True,
+        )
+        
+        # COMMENT THIS OUT RETURN ac_networks IF YOU WANT TO RUN A TRAINING/EVAL LOOP WITHOUT SIMBA
+        # ac_networks = make_actor_critic_networks_tetris(
+        #     tetris=env.unwrapped,
+        #     conv_num_channels=conv_num_channels,
+        #     tetromino_layers=tetromino_layers,
+        #     head_layers=head_layers
+        # )
+    return ActorCriticNetworks(
+        policy_network=policy_network,
+        value_network=value_network,
+        parametric_action_distribution=parametric_action_distribution
+    )
 
 
 
