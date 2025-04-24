@@ -26,7 +26,7 @@ import os
 import matplotlib.pyplot as plt
 from tqdm import trange
 
-cfg = OmegaConf.create({
+cfg_a2c = OmegaConf.create({
     "seed": 0,
     "env": {
         "name": "tetris",
@@ -59,7 +59,7 @@ cfg = OmegaConf.create({
     "agent": "a2c"
 })
 
-cfg_ppo = OmegaConf.create({
+cfg = OmegaConf.create({
     "seed": 0,
     "env": {
         "name": "tetris",
@@ -71,8 +71,8 @@ cfg_ppo = OmegaConf.create({
         },
         "training": {
             "num_epochs": 500,
-            "num_learner_steps_per_epoch": 30,
-            "n_steps": 150,
+            "num_learner_steps_per_epoch": 150,
+            "n_steps": 30,
             "total_batch_size": 128,
         },
         "evaluation": {
@@ -80,16 +80,16 @@ cfg_ppo = OmegaConf.create({
             "greedy_eval_total_batch_size": 1024,
         },
         "ppo": {
-            "normalize_advantage": False,
+            "normalize_advantage": True,
             "num_minibatches": 4,
-            "ppo_epochs": 8,
+            "ppo_epochs": 5,
             "discount_factor": 0.9,
             "gae_lambda": 0.95,
-            "l_td": 1.0,
+            "l_td": 0.5,
             "l_en": 0.01,
             "max_grad_norm": 0.5,
             "learning_rate": 3e-4,
-            "clip_epsilon": 0.1,
+            "clip_epsilon": 0.2,
         },
     },
     "agent": "ppo"
@@ -99,9 +99,8 @@ cfg_ppo = OmegaConf.create({
 # Everything following is adapted from Jumanji's training/train.py
 key, init_key = jax.random.split(jax.random.PRNGKey(cfg.seed))
 env = setup_env(cfg=cfg)
-
-
-# Modified make_network method to include SimBa Changes, 
+# to make it work for now
+IS_TRAINING = False
 def make_network_cnn(
     conv_num_channels: int,
     tetromino_layers: Sequence[int],
@@ -110,6 +109,10 @@ def make_network_cnn(
     critic: bool,
     num_residual_blocks: int = 2,
 ) -> FeedForwardNetwork:
+    """ Adapted from jumanji.training.networks.tetris.actor_critic with following changes
+        1. Define a residual feedforward block identical to the one in the paper
+        2. maintains 
+    """
     class ResidualFF(hk.Module):
         def __init__(self, hidden_dim: int, name=None):
             super().__init__(name=name)
@@ -122,23 +125,73 @@ def make_network_cnn(
             y = hk.Linear(4* self.hidden_dim)(y)
             y = jax.nn.relu(y)
             y = hk.Linear(self.hidden_dim)(y)
-            # residual
             return x + y
         
-    def network_fn(observation: Observation) -> chex.Array:
-        eps = 1e-6
-        ### Taking the RSNorm 
+    class RSNorm(hk.Module):
+        def __init__(self, name = None, eps= 1e-6):
+            super().__init__(name)
+            self.eps = eps
+
+        def __call__(self, x, timestep, is_training):
+            shape = x.shape
+    
+            mu_t = hk.get_state("mu_t", x.shape, init=jnp.zeros)
+            var_t = hk.get_state("var_t", x.shape, init=jnp.ones)
+            
+            # flatten them into vectors
+            flat_x = jnp.reshape(x, (x.shape[0], -1))
+            flat_mu = jnp.reshape(mu_t, (mu_t.shape[0], -1))
+            flat_var = jnp.reshape(var_t, (var_t.shape[0], -1))
+
+            def norm(o, mu, var):
+                return jnp.divide(o - mu, jnp.sqrt((var**2) + self.eps))
+
+            def train_fn(_):
+                if isinstance(timestep, jnp.ndarray):
+                    timestep_broadcast = timestep[:, None]
+                else:
+                    timestep_broadcast = timestep
+
+                timestep_scalar = timestep[0] if isinstance(timestep, jnp.ndarray) and timestep.size > 0 else timestep
+
+                def first(_):
+                    return flat_x
+                
+                def rest(_):
+                    delta = flat_x - flat_mu
+                    new_mu = flat_mu + delta / timestep_broadcast
+                    new_var = ((timestep_broadcast-1) / timestep_broadcast) * ((flat_var**2) + (delta**2)/timestep_broadcast) 
+                    hk.set_state("mu_t", jnp.reshape(new_mu, shape))
+                    hk.set_state("var_t", jnp.reshape(new_var, shape))
+                    return norm(flat_x, new_mu, new_var)
+
+                normalized_input = jax.lax.cond(timestep_scalar==0, first, rest, operand=None)
+                new_obs = jnp.reshape(normalized_input, x.shape)
+                return new_obs# don't forget to reshape it
+             
+            def eval_fn(_):
+                norm_input = norm(flat_x, flat_mu, flat_var)
+                return jnp.reshape(norm_input, x.shape)
+            new_obs = jax.lax.cond(
+                is_training,
+                train_fn, 
+                eval_fn,
+                operand=None
+            )
+            return new_obs
+        
+    def network_fn(observation: Observation, rng=None) -> chex.Array:
+        # Taking the RSNorm of input observations, only for tetris right now
+        timestep = observation.step_count
         # the grid
         grid = observation.grid.astype(jnp.float32)[..., None]
-        mean_g = jnp.mean(grid, axis=(1,2,3), keepdims=True)
-        stdev_g = jnp.sqrt(jnp.var(grid, axis=(1,2,3), keepdims=True) + eps)
-        grid_norm = (grid - mean_g) / stdev_g
+        grid_norm = RSNorm(name="grid_norm")
+        normed_grid = grid_norm(grid, timestep, IS_TRAINING)
 
         # the tetromino
         tet = observation.tetromino.astype(jnp.float32)[..., None]
-        mean_tet = jnp.mean(tet, axis=(1,2,3), keepdims=True)
-        stdev_tet = jnp.sqrt(jnp.var(tet, axis=(1,2,3), keepdims=True) + eps)
-        tet_norm = (tet - mean_tet) / stdev_tet
+        tet_norm = RSNorm(name="tet_norm")
+        normed_tet = tet_norm(tet, timestep, IS_TRAINING)
 
         grid_net = hk.Sequential(
             [
@@ -152,7 +205,7 @@ def make_network_cnn(
                 jax.nn.relu,
             ]
         )
-        grid_embeddings = grid_net(grid_norm)  # [B, 2, 10, 64]
+        grid_embeddings = grid_net(normed_grid)  # [B, 2, 10, 64]
         grid_embeddings = jnp.transpose(grid_embeddings, [0, 2, 1, 3])  # [B, 10, 2, 64]
         grid_embeddings = jnp.reshape(
             grid_embeddings, [*grid_embeddings.shape[:2], -1]
@@ -165,7 +218,7 @@ def make_network_cnn(
                 hk.nets.MLP(tetromino_layers, activate_final=True),
             ]
         )
-        tetromino_embeddings = tetromino_net(tet_norm)
+        tetromino_embeddings = tetromino_net(normed_tet)
         tetromino_embeddings = jnp.tile(
             tetromino_embeddings[:, None], (grid_embeddings.shape[1], 1)
         )
@@ -200,7 +253,7 @@ def make_network_cnn(
             ).reshape(observation.action_mask.shape[0], -1)
             return masked_logits  # [B, 40]
 
-    init, apply = hk.without_apply_rng(hk.transform(network_fn))
+    init, apply = hk.without_apply_rng(hk.transform_with_state(network_fn))
     return FeedForwardNetwork(init=init, apply=apply)
 
 def setup_actor_critic_networks(cfg: DictConfig, env: Environment) -> ActorCriticNetworks:
@@ -351,20 +404,23 @@ for epoch in trange(cfg.env.training.num_epochs):
     # Eval
     key, eval_key = jax.random.split(key)
     
+    IS_TRAINING = False
     with eval_timer:
         eval = stochastic_eval.run_evaluation(training_state.params_state, eval_key)
         jax.block_until_ready(eval)
         metrics = utils.first_from_device(eval)
     eval_metrics = metrics
-  
+    print("we can eval")
 
     # Train
+    IS_TRAINING = True
     with train_timer:
+        print("gonna start training")
         state, train_metrics = epoch_fn(training_state)
         jax.block_until_ready((state, train_metrics))
         metrics = utils.first_from_device(train_metrics)
     train_metrics = metrics
-
+    print("should be able to train")
     track_and_dump_metrics(epoch=epoch, eval_metrics=eval_metrics, train_metrics=train_metrics, filename=f"{cfg.agent}_{cfg.env.name}.json")
     training_state = state
 

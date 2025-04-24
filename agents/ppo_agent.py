@@ -172,7 +172,15 @@ class PPOAgent(A2CAgent):
             last_observation,
         )
         
-        value = jax.vmap(value_apply, in_axes=(None, 0))(params.critic, observation)
+        def apply_value_fn(obs):   
+            if isinstance(params.critic, tuple) and len(params.critic) == 2:
+                critic_params, critic_state = params.critic
+                value, _ = value_apply(critic_params, critic_state, obs)
+                return value            
+            else:
+                value = value_apply(params.critic, obs)
+        
+        value = jax.vmap(apply_value_fn)(observation)
         discounts = jnp.asarray(self.discount_factor * data.discount, float)
         value_tm1 = value[:-1]
         value_t = value[1:]
@@ -220,10 +228,15 @@ class PPOAgent(A2CAgent):
         flattened_actions = data.action[..., 0] * num_rotations + data.action[..., 1]
         
         # Get current logits
-        current_logits = jax.vmap(self.actor_critic_networks.policy_network.apply, in_axes=(None, 0))(
-            params.actor, data.observation
-        )
+        def apply_policy_fn(obs):
+            if isinstance(params.actor, tuple) and len(params.actor) == 2:
+                actor_params, actor_state = params.actor
+                current_logits, _ = policy_network.apply(actor_params, actor_state, obs)
+                return current_logits
+            else:
+                current_logits = policy_network.apply(params.actor, obs)
         
+        current_logits = jax.vmap(apply_policy_fn)(data.observation)
         # Calculate log probs using flattened actions
         current_log_probs = jax.vmap(self.actor_critic_networks.parametric_action_distribution.log_prob)(
             current_logits, flattened_actions
@@ -236,9 +249,16 @@ class PPOAgent(A2CAgent):
         surrogate2 = jnp.multiply(jnp.clip(ratios, 1.0 - self.clip_epsilon, 1.0 + self.clip_epsilon), advantages)
         policy_loss = -jnp.mean(jnp.minimum(surrogate1,surrogate2))
 
-        current_values = jax.vmap(value_network.apply, in_axes=(None, 0))(
-            params.critic, data.observation
-        )
+        def apply_value_fn(obs):
+            if isinstance(params.critic, tuple) and len(params.critic) == 2:
+                critic_params, critic_state = params.critic
+                value, _ = value_network.apply(critic_params, critic_state, obs)
+                return value
+            else:
+                current_values = value_network.apply(params.critic, obs)
+                return current_values
+        
+        current_values = jax.vmap(apply_value_fn)(data.observation)
         value_loss = jnp.mean(jnp.square(returns - current_values))
 
         entropy = jnp.mean(
@@ -282,7 +302,12 @@ class PPOAgent(A2CAgent):
         def policy(
                 observation: Any, key: chex.PRNGKey
         ) -> Tuple[chex.Array, Tuple[chex.Array, chex.Array]]:
-            logits = policy_network.apply(policy_params, observation)
+            if isinstance(policy_params, tuple) and len(policy_params) == 2:
+                params, state = policy_params
+                logits, _ = policy_network.apply(params, state, observation)
+            else:
+                logits = policy_network.apply(policy_params, observation)
+
             if stochastic:
                 raw_action = parametric_action_distribution.sample_no_postprocessing(logits,key)
                 log_prob = parametric_action_distribution.log_prob(logits, raw_action)
