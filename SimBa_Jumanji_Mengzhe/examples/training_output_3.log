@@ -1,0 +1,607 @@
+INFO:root:Starting logger.
+
+INFO:root:Eval Stochastic >> Env Steps: 0.00e+00 | Episode Length: 14.229 | Episode Return: 3.516 | Time: 3.776
+
+INFO:root:Eval Greedy >> Env Steps: 0.00e+00 | Episode Length: 14.808 | Episode Return: 4.668 | Time: 2.821
+
+INFO:root:Train >> Env Steps: 0.00e+00 | Advantage: 0.025 | Critic Loss: 120.966 | Entropy: 1.268 | Entropy Loss: -1.268 | Policy Loss: -0.460 | Steps Per Second: 8,997 | Time: 64.018 | Total Loss: 120.493 | Value: 7.880
+
+INFO:root:Eval Stochastic >> Env Steps: 5.76e+05 | Episode Length: 20.220 | Episode Return: 43.359 | Time: 0.070
+
+INFO:root:Eval Greedy >> Env Steps: 5.76e+05 | Episode Length: 20.537 | Episode Return: 47.129 | Time: 0.070
+
+INFO:root:Train >> Env Steps: 5.76e+05 | Advantage: 0.046 | Critic Loss: 214.605 | Entropy: 0.226 | Entropy Loss: -0.226 | Policy Loss: -0.395 | Steps Per Second: 11,745 | Time: 49.039 | Total Loss: 214.208 | Value: 15.623
+
+INFO:root:Eval Stochastic >> Env Steps: 1.15e+06 | Episode Length: 20.873 | Episode Return: 53.086 | Time: 0.081
+
+INFO:root:Eval Greedy >> Env Steps: 1.15e+06 | Episode Length: 20.699 | Episode Return: 49.512 | Time: 0.075
+
+INFO:root:Train >> Env Steps: 1.15e+06 | Advantage: -0.002 | Critic Loss: 222.756 | Entropy: 0.151 | Entropy Loss: -0.151 | Policy Loss: -0.265 | Steps Per Second: 11,743 | Time: 49.049 | Total Loss: 222.489 | Value: 17.497
+
+INFO:root:Eval Stochastic >> Env Steps: 1.73e+06 | Episode Length: 20.653 | Episode Return: 52.012 | Time: 0.071
+
+INFO:root:Eval Greedy >> Env Steps: 1.73e+06 | Episode Length: 20.635 | Episode Return: 50.352 | Time: 0.069
+
+INFO:root:Train >> Env Steps: 1.73e+06 | Advantage: 0.010 | Critic Loss: 231.974 | Entropy: 0.137 | Entropy Loss: -0.137 | Policy Loss: -0.241 | Steps Per Second: 11,744 | Time: 49.044 | Total Loss: 231.732 | Value: 18.262
+
+INFO:root:Eval Stochastic >> Env Steps: 2.30e+06 | Episode Length: 20.919 | Episode Return: 57.578 | Time: 0.071
+
+INFO:root:Eval Greedy >> Env Steps: 2.30e+06 | Episode Length: 20.693 | Episode Return: 53.320 | Time: 0.075
+
+INFO:root:Train >> Env Steps: 2.30e+06 | Advantage: -0.023 | Critic Loss: 230.918 | Entropy: 0.126 | Entropy Loss: -0.126 | Policy Loss: -0.222 | Steps Per Second: 11,747 | Time: 49.033 | Total Loss: 230.695 | Value: 18.948
+
+INFO:root:Eval Stochastic >> Env Steps: 2.88e+06 | Episode Length: 20.688 | Episode Return: 53.027 | Time: 0.075
+
+INFO:root:Eval Greedy >> Env Steps: 2.88e+06 | Episode Length: 20.877 | Episode Return: 57.168 | Time: 0.069
+
+INFO:root:Train >> Env Steps: 2.88e+06 | Advantage: 0.002 | Critic Loss: 232.119 | Entropy: 0.100 | Entropy Loss: -0.100 | Policy Loss: -0.195 | Steps Per Second: 11,716 | Time: 49.163 | Total Loss: 231.923 | Value: 19.347
+
+INFO:root:Eval Stochastic >> Env Steps: 3.46e+06 | Episode Length: 20.895 | Episode Return: 55.527 | Time: 0.079
+
+INFO:root:Eval Greedy >> Env Steps: 3.46e+06 | Episode Length: 20.877 | Episode Return: 55.000 | Time: 0.069
+
+INFO:root:Train >> Env Steps: 3.46e+06 | Advantage: 0.007 | Critic Loss: 228.031 | Entropy: 0.097 | Entropy Loss: -0.097 | Policy Loss: -0.192 | Steps Per Second: 11,726 | Time: 49.121 | Total Loss: 227.838 | Value: 19.242
+
+INFO:root:Eval Stochastic >> Env Steps: 4.03e+06 | Episode Length: 21.013 | Episode Return: 59.062 | Time: 0.073
+
+INFO:root:Eval Greedy >> Env Steps: 4.03e+06 | Episode Length: 21.004 | Episode Return: 59.219 | Time: 0.073
+
+INFO:root:Train >> Env Steps: 4.03e+06 | Advantage: 0.007 | Critic Loss: 233.134 | Entropy: 0.083 | Entropy Loss: -0.083 | Policy Loss: -0.161 | Steps Per Second: 11,719 | Time: 49.150 | Total Loss: 232.972 | Value: 19.797
+
+INFO:root:Eval Stochastic >> Env Steps: 4.61e+06 | Episode Length: 20.584 | Episode Return: 55.723 | Time: 0.072
+
+INFO:root:Eval Greedy >> Env Steps: 4.61e+06 | Episode Length: 20.688 | Episode Return: 57.031 | Time: 0.085
+
+INFO:root:Train >> Env Steps: 4.61e+06 | Advantage: -0.021 | Critic Loss: 231.803 | Entropy: 0.076 | Entropy Loss: -0.076 | Policy Loss: -0.165 | Steps Per Second: 11,714 | Time: 49.171 | Total Loss: 231.638 | Value: 19.836
+
+INFO:root:Eval Stochastic >> Env Steps: 5.18e+06 | Episode Length: 20.621 | Episode Return: 56.074 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 5.18e+06 | Episode Length: 20.810 | Episode Return: 58.945 | Time: 0.070
+
+INFO:root:Train >> Env Steps: 5.18e+06 | Advantage: 0.027 | Critic Loss: 236.496 | Entropy: 0.073 | Entropy Loss: -0.073 | Policy Loss: -0.148 | Steps Per Second: 11,742 | Time: 49.054 | Total Loss: 236.347 | Value: 20.413
+
+INFO:root:Eval Stochastic >> Env Steps: 5.76e+06 | Episode Length: 21.029 | Episode Return: 62.129 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 5.76e+06 | Episode Length: 20.981 | Episode Return: 60.898 | Time: 0.077
+
+INFO:root:Train >> Env Steps: 5.76e+06 | Advantage: 0.007 | Critic Loss: 238.830 | Entropy: 0.075 | Entropy Loss: -0.075 | Policy Loss: -0.136 | Steps Per Second: 11,735 | Time: 49.080 | Total Loss: 238.693 | Value: 20.748
+
+INFO:root:Eval Stochastic >> Env Steps: 6.34e+06 | Episode Length: 21.056 | Episode Return: 61.816 | Time: 0.073
+
+INFO:root:Eval Greedy >> Env Steps: 6.34e+06 | Episode Length: 21.293 | Episode Return: 64.883 | Time: 0.069
+
+INFO:root:Train >> Env Steps: 6.34e+06 | Advantage: -0.016 | Critic Loss: 239.885 | Entropy: 0.071 | Entropy Loss: -0.071 | Policy Loss: -0.156 | Steps Per Second: 11,736 | Time: 49.080 | Total Loss: 239.728 | Value: 20.894
+
+INFO:root:Eval Stochastic >> Env Steps: 6.91e+06 | Episode Length: 21.215 | Episode Return: 63.262 | Time: 0.091
+
+INFO:root:Eval Greedy >> Env Steps: 6.91e+06 | Episode Length: 21.212 | Episode Return: 63.633 | Time: 0.075
+
+INFO:root:Train >> Env Steps: 6.91e+06 | Advantage: 0.015 | Critic Loss: 241.503 | Entropy: 0.070 | Entropy Loss: -0.070 | Policy Loss: -0.136 | Steps Per Second: 11,743 | Time: 49.050 | Total Loss: 241.366 | Value: 20.821
+
+INFO:root:Eval Stochastic >> Env Steps: 7.49e+06 | Episode Length: 21.079 | Episode Return: 60.488 | Time: 0.075
+
+INFO:root:Eval Greedy >> Env Steps: 7.49e+06 | Episode Length: 21.198 | Episode Return: 62.676 | Time: 0.079
+
+INFO:root:Train >> Env Steps: 7.49e+06 | Advantage: 0.011 | Critic Loss: 241.820 | Entropy: 0.070 | Entropy Loss: -0.070 | Policy Loss: -0.141 | Steps Per Second: 11,743 | Time: 49.049 | Total Loss: 241.678 | Value: 21.043
+
+INFO:root:Eval Stochastic >> Env Steps: 8.06e+06 | Episode Length: 21.007 | Episode Return: 61.895 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 8.06e+06 | Episode Length: 21.231 | Episode Return: 64.434 | Time: 0.074
+
+INFO:root:Train >> Env Steps: 8.06e+06 | Advantage: -0.014 | Critic Loss: 239.325 | Entropy: 0.059 | Entropy Loss: -0.059 | Policy Loss: -0.115 | Steps Per Second: 11,743 | Time: 49.050 | Total Loss: 239.209 | Value: 21.187
+
+INFO:root:Eval Stochastic >> Env Steps: 8.64e+06 | Episode Length: 21.134 | Episode Return: 63.340 | Time: 0.085
+
+INFO:root:Eval Greedy >> Env Steps: 8.64e+06 | Episode Length: 21.199 | Episode Return: 63.027 | Time: 0.075
+
+INFO:root:Train >> Env Steps: 8.64e+06 | Advantage: -0.002 | Critic Loss: 250.710 | Entropy: 0.059 | Entropy Loss: -0.059 | Policy Loss: -0.119 | Steps Per Second: 11,736 | Time: 49.077 | Total Loss: 250.590 | Value: 21.502
+
+INFO:root:Eval Stochastic >> Env Steps: 9.22e+06 | Episode Length: 21.510 | Episode Return: 68.223 | Time: 0.079
+
+INFO:root:Eval Greedy >> Env Steps: 9.22e+06 | Episode Length: 21.202 | Episode Return: 62.988 | Time: 0.077
+
+INFO:root:Train >> Env Steps: 9.22e+06 | Advantage: 0.005 | Critic Loss: 236.537 | Entropy: 0.060 | Entropy Loss: -0.060 | Policy Loss: -0.127 | Steps Per Second: 11,750 | Time: 49.019 | Total Loss: 236.408 | Value: 20.657
+
+INFO:root:Eval Stochastic >> Env Steps: 9.79e+06 | Episode Length: 21.163 | Episode Return: 61.035 | Time: 0.069
+
+INFO:root:Eval Greedy >> Env Steps: 9.79e+06 | Episode Length: 21.108 | Episode Return: 60.703 | Time: 0.073
+
+INFO:root:Train >> Env Steps: 9.79e+06 | Advantage: 0.014 | Critic Loss: 241.124 | Entropy: 0.058 | Entropy Loss: -0.058 | Policy Loss: -0.111 | Steps Per Second: 11,737 | Time: 49.072 | Total Loss: 241.012 | Value: 21.127
+
+INFO:root:Eval Stochastic >> Env Steps: 1.04e+07 | Episode Length: 20.766 | Episode Return: 60.059 | Time: 0.073
+
+INFO:root:Eval Greedy >> Env Steps: 1.04e+07 | Episode Length: 21.029 | Episode Return: 64.609 | Time: 0.077
+
+INFO:root:Train >> Env Steps: 1.04e+07 | Advantage: -0.016 | Critic Loss: 242.843 | Entropy: 0.054 | Entropy Loss: -0.054 | Policy Loss: -0.115 | Steps Per Second: 11,744 | Time: 49.044 | Total Loss: 242.728 | Value: 21.461
+
+INFO:root:Eval Stochastic >> Env Steps: 1.09e+07 | Episode Length: 21.111 | Episode Return: 63.496 | Time: 0.073
+
+INFO:root:Eval Greedy >> Env Steps: 1.09e+07 | Episode Length: 20.875 | Episode Return: 59.688 | Time: 0.079
+
+INFO:root:Train >> Env Steps: 1.09e+07 | Advantage: 0.009 | Critic Loss: 240.385 | Entropy: 0.055 | Entropy Loss: -0.055 | Policy Loss: -0.110 | Steps Per Second: 11,734 | Time: 49.085 | Total Loss: 240.275 | Value: 21.611
+
+INFO:root:Eval Stochastic >> Env Steps: 1.15e+07 | Episode Length: 21.161 | Episode Return: 64.062 | Time: 0.079
+
+INFO:root:Eval Greedy >> Env Steps: 1.15e+07 | Episode Length: 21.393 | Episode Return: 68.281 | Time: 0.095
+
+INFO:root:Train >> Env Steps: 1.15e+07 | Advantage: -0.001 | Critic Loss: 246.026 | Entropy: 0.056 | Entropy Loss: -0.056 | Policy Loss: -0.102 | Steps Per Second: 11,743 | Time: 49.048 | Total Loss: 245.923 | Value: 22.116
+
+INFO:root:Eval Stochastic >> Env Steps: 1.21e+07 | Episode Length: 21.068 | Episode Return: 61.543 | Time: 0.081
+
+INFO:root:Eval Greedy >> Env Steps: 1.21e+07 | Episode Length: 21.387 | Episode Return: 67.734 | Time: 0.073
+
+INFO:root:Train >> Env Steps: 1.21e+07 | Advantage: 0.002 | Critic Loss: 244.421 | Entropy: 0.054 | Entropy Loss: -0.054 | Policy Loss: -0.110 | Steps Per Second: 11,745 | Time: 49.041 | Total Loss: 244.310 | Value: 22.052
+
+INFO:root:Eval Stochastic >> Env Steps: 1.27e+07 | Episode Length: 21.187 | Episode Return: 67.793 | Time: 0.071
+
+INFO:root:Eval Greedy >> Env Steps: 1.27e+07 | Episode Length: 21.105 | Episode Return: 64.121 | Time: 0.071
+
+INFO:root:Train >> Env Steps: 1.27e+07 | Advantage: 0.006 | Critic Loss: 243.358 | Entropy: 0.052 | Entropy Loss: -0.052 | Policy Loss: -0.099 | Steps Per Second: 11,734 | Time: 49.086 | Total Loss: 243.258 | Value: 21.800
+
+INFO:root:Eval Stochastic >> Env Steps: 1.32e+07 | Episode Length: 21.197 | Episode Return: 63.340 | Time: 0.083
+
+INFO:root:Eval Greedy >> Env Steps: 1.32e+07 | Episode Length: 21.404 | Episode Return: 67.480 | Time: 0.073
+
+INFO:root:Train >> Env Steps: 1.32e+07 | Advantage: -0.010 | Critic Loss: 241.335 | Entropy: 0.051 | Entropy Loss: -0.051 | Policy Loss: -0.100 | Steps Per Second: 11,733 | Time: 49.090 | Total Loss: 241.235 | Value: 21.335
+
+INFO:root:Eval Stochastic >> Env Steps: 1.38e+07 | Episode Length: 21.284 | Episode Return: 63.965 | Time: 0.075
+
+INFO:root:Eval Greedy >> Env Steps: 1.38e+07 | Episode Length: 21.173 | Episode Return: 62.402 | Time: 0.075
+
+INFO:root:Train >> Env Steps: 1.38e+07 | Advantage: -0.004 | Critic Loss: 243.997 | Entropy: 0.057 | Entropy Loss: -0.057 | Policy Loss: -0.118 | Steps Per Second: 11,726 | Time: 49.118 | Total Loss: 243.878 | Value: 21.696
+
+INFO:root:Eval Stochastic >> Env Steps: 1.44e+07 | Episode Length: 21.244 | Episode Return: 65.215 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 1.44e+07 | Episode Length: 21.473 | Episode Return: 68.066 | Time: 0.095
+
+INFO:root:Train >> Env Steps: 1.44e+07 | Advantage: 0.017 | Critic Loss: 245.879 | Entropy: 0.057 | Entropy Loss: -0.057 | Policy Loss: -0.106 | Steps Per Second: 11,734 | Time: 49.084 | Total Loss: 245.772 | Value: 22.092
+
+INFO:root:Eval Stochastic >> Env Steps: 1.50e+07 | Episode Length: 21.309 | Episode Return: 66.875 | Time: 0.079
+
+INFO:root:Eval Greedy >> Env Steps: 1.50e+07 | Episode Length: 21.384 | Episode Return: 67.109 | Time: 0.073
+
+INFO:root:Train >> Env Steps: 1.50e+07 | Advantage: 0.011 | Critic Loss: 246.004 | Entropy: 0.049 | Entropy Loss: -0.049 | Policy Loss: -0.109 | Steps Per Second: 11,739 | Time: 49.066 | Total Loss: 245.895 | Value: 22.161
+
+INFO:root:Eval Stochastic >> Env Steps: 1.56e+07 | Episode Length: 21.399 | Episode Return: 66.680 | Time: 0.076
+
+INFO:root:Eval Greedy >> Env Steps: 1.56e+07 | Episode Length: 21.507 | Episode Return: 67.168 | Time: 0.081
+
+INFO:root:Train >> Env Steps: 1.56e+07 | Advantage: 0.008 | Critic Loss: 248.703 | Entropy: 0.046 | Entropy Loss: -0.046 | Policy Loss: -0.096 | Steps Per Second: 11,735 | Time: 49.082 | Total Loss: 248.606 | Value: 21.995
+
+INFO:root:Eval Stochastic >> Env Steps: 1.61e+07 | Episode Length: 21.444 | Episode Return: 63.750 | Time: 0.075
+
+INFO:root:Eval Greedy >> Env Steps: 1.61e+07 | Episode Length: 21.420 | Episode Return: 64.434 | Time: 0.072
+
+INFO:root:Train >> Env Steps: 1.61e+07 | Advantage: -0.004 | Critic Loss: 247.619 | Entropy: 0.049 | Entropy Loss: -0.049 | Policy Loss: -0.092 | Steps Per Second: 11,756 | Time: 48.993 | Total Loss: 247.526 | Value: 21.891
+
+INFO:root:Eval Stochastic >> Env Steps: 1.67e+07 | Episode Length: 21.569 | Episode Return: 66.914 | Time: 0.073
+
+INFO:root:Eval Greedy >> Env Steps: 1.67e+07 | Episode Length: 21.612 | Episode Return: 67.188 | Time: 0.075
+
+INFO:root:Train >> Env Steps: 1.67e+07 | Advantage: -0.003 | Critic Loss: 247.789 | Entropy: 0.051 | Entropy Loss: -0.051 | Policy Loss: -0.108 | Steps Per Second: 11,743 | Time: 49.050 | Total Loss: 247.681 | Value: 21.818
+
+INFO:root:Eval Stochastic >> Env Steps: 1.73e+07 | Episode Length: 21.192 | Episode Return: 64.219 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 1.73e+07 | Episode Length: 21.282 | Episode Return: 66.250 | Time: 0.078
+
+INFO:root:Train >> Env Steps: 1.73e+07 | Advantage: -0.008 | Critic Loss: 245.411 | Entropy: 0.053 | Entropy Loss: -0.053 | Policy Loss: -0.083 | Steps Per Second: 11,745 | Time: 49.038 | Total Loss: 245.328 | Value: 21.916
+
+INFO:root:Eval Stochastic >> Env Steps: 1.79e+07 | Episode Length: 21.598 | Episode Return: 68.438 | Time: 0.085
+
+INFO:root:Eval Greedy >> Env Steps: 1.79e+07 | Episode Length: 21.334 | Episode Return: 65.078 | Time: 0.072
+
+INFO:root:Train >> Env Steps: 1.79e+07 | Advantage: -0.022 | Critic Loss: 245.034 | Entropy: 0.045 | Entropy Loss: -0.045 | Policy Loss: -0.084 | Steps Per Second: 11,751 | Time: 49.017 | Total Loss: 244.949 | Value: 22.049
+
+INFO:root:Eval Stochastic >> Env Steps: 1.84e+07 | Episode Length: 21.357 | Episode Return: 66.094 | Time: 0.083
+
+INFO:root:Eval Greedy >> Env Steps: 1.84e+07 | Episode Length: 21.666 | Episode Return: 69.902 | Time: 0.068
+
+INFO:root:Train >> Env Steps: 1.84e+07 | Advantage: 0.029 | Critic Loss: 246.556 | Entropy: 0.044 | Entropy Loss: -0.044 | Policy Loss: -0.089 | Steps Per Second: 11,750 | Time: 49.018 | Total Loss: 246.467 | Value: 22.362
+
+INFO:root:Eval Stochastic >> Env Steps: 1.90e+07 | Episode Length: 21.459 | Episode Return: 68.047 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 1.90e+07 | Episode Length: 21.405 | Episode Return: 67.246 | Time: 0.080
+
+INFO:root:Train >> Env Steps: 1.90e+07 | Advantage: -0.029 | Critic Loss: 243.492 | Entropy: 0.045 | Entropy Loss: -0.045 | Policy Loss: -0.099 | Steps Per Second: 11,760 | Time: 48.976 | Total Loss: 243.392 | Value: 21.905
+
+INFO:root:Eval Stochastic >> Env Steps: 1.96e+07 | Episode Length: 21.312 | Episode Return: 67.871 | Time: 0.087
+
+INFO:root:Eval Greedy >> Env Steps: 1.96e+07 | Episode Length: 21.362 | Episode Return: 68.867 | Time: 0.076
+
+INFO:root:Train >> Env Steps: 1.96e+07 | Advantage: 0.023 | Critic Loss: 248.031 | Entropy: 0.044 | Entropy Loss: -0.044 | Policy Loss: -0.094 | Steps Per Second: 11,770 | Time: 48.936 | Total Loss: 247.937 | Value: 22.486
+
+INFO:root:Eval Stochastic >> Env Steps: 2.02e+07 | Episode Length: 21.410 | Episode Return: 66.113 | Time: 0.073
+
+INFO:root:Eval Greedy >> Env Steps: 2.02e+07 | Episode Length: 21.321 | Episode Return: 64.316 | Time: 0.080
+
+INFO:root:Train >> Env Steps: 2.02e+07 | Advantage: 0.014 | Critic Loss: 247.745 | Entropy: 0.042 | Entropy Loss: -0.042 | Policy Loss: -0.093 | Steps Per Second: 11,770 | Time: 48.938 | Total Loss: 247.651 | Value: 22.482
+
+INFO:root:Eval Stochastic >> Env Steps: 2.07e+07 | Episode Length: 21.339 | Episode Return: 68.574 | Time: 0.069
+
+INFO:root:Eval Greedy >> Env Steps: 2.07e+07 | Episode Length: 21.229 | Episode Return: 67.070 | Time: 0.076
+
+INFO:root:Train >> Env Steps: 2.07e+07 | Advantage: -0.031 | Critic Loss: 248.670 | Entropy: 0.044 | Entropy Loss: -0.044 | Policy Loss: -0.110 | Steps Per Second: 11,773 | Time: 48.922 | Total Loss: 248.560 | Value: 22.460
+
+INFO:root:Eval Stochastic >> Env Steps: 2.13e+07 | Episode Length: 21.324 | Episode Return: 67.383 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 2.13e+07 | Episode Length: 21.294 | Episode Return: 67.148 | Time: 0.076
+
+INFO:root:Train >> Env Steps: 2.13e+07 | Advantage: 0.025 | Critic Loss: 249.370 | Entropy: 0.045 | Entropy Loss: -0.045 | Policy Loss: -0.101 | Steps Per Second: 11,773 | Time: 48.923 | Total Loss: 249.269 | Value: 22.422
+
+INFO:root:Eval Stochastic >> Env Steps: 2.19e+07 | Episode Length: 21.442 | Episode Return: 66.660 | Time: 0.075
+
+INFO:root:Eval Greedy >> Env Steps: 2.19e+07 | Episode Length: 21.418 | Episode Return: 66.973 | Time: 0.072
+
+INFO:root:Train >> Env Steps: 2.19e+07 | Advantage: -0.003 | Critic Loss: 245.284 | Entropy: 0.046 | Entropy Loss: -0.046 | Policy Loss: -0.095 | Steps Per Second: 11,741 | Time: 49.055 | Total Loss: 245.189 | Value: 22.238
+
+INFO:root:Eval Stochastic >> Env Steps: 2.25e+07 | Episode Length: 21.232 | Episode Return: 64.707 | Time: 0.073
+
+INFO:root:Eval Greedy >> Env Steps: 2.25e+07 | Episode Length: 21.186 | Episode Return: 63.438 | Time: 0.068
+
+INFO:root:Train >> Env Steps: 2.25e+07 | Advantage: -0.014 | Critic Loss: 246.930 | Entropy: 0.037 | Entropy Loss: -0.037 | Policy Loss: -0.074 | Steps Per Second: 11,743 | Time: 49.047 | Total Loss: 246.856 | Value: 22.033
+
+INFO:root:Eval Stochastic >> Env Steps: 2.30e+07 | Episode Length: 21.417 | Episode Return: 64.551 | Time: 0.085
+
+INFO:root:Eval Greedy >> Env Steps: 2.30e+07 | Episode Length: 21.689 | Episode Return: 68.789 | Time: 0.074
+
+INFO:root:Train >> Env Steps: 2.30e+07 | Advantage: 0.036 | Critic Loss: 254.760 | Entropy: 0.041 | Entropy Loss: -0.041 | Policy Loss: -0.080 | Steps Per Second: 11,741 | Time: 49.055 | Total Loss: 254.679 | Value: 22.384
+
+INFO:root:Eval Stochastic >> Env Steps: 2.36e+07 | Episode Length: 21.401 | Episode Return: 69.023 | Time: 0.073
+
+INFO:root:Eval Greedy >> Env Steps: 2.36e+07 | Episode Length: 21.574 | Episode Return: 71.230 | Time: 0.072
+
+INFO:root:Train >> Env Steps: 2.36e+07 | Advantage: -0.030 | Critic Loss: 253.576 | Entropy: 0.041 | Entropy Loss: -0.041 | Policy Loss: -0.092 | Steps Per Second: 11,770 | Time: 48.938 | Total Loss: 253.484 | Value: 22.808
+
+INFO:root:Eval Stochastic >> Env Steps: 2.42e+07 | Episode Length: 21.661 | Episode Return: 72.031 | Time: 0.089
+
+INFO:root:Eval Greedy >> Env Steps: 2.42e+07 | Episode Length: 21.273 | Episode Return: 65.781 | Time: 0.070
+
+INFO:root:Train >> Env Steps: 2.42e+07 | Advantage: 0.018 | Critic Loss: 247.525 | Entropy: 0.039 | Entropy Loss: -0.039 | Policy Loss: -0.105 | Steps Per Second: 11,740 | Time: 49.061 | Total Loss: 247.419 | Value: 22.315
+
+INFO:root:Eval Stochastic >> Env Steps: 2.48e+07 | Episode Length: 21.220 | Episode Return: 65.527 | Time: 0.071
+
+INFO:root:Eval Greedy >> Env Steps: 2.48e+07 | Episode Length: 21.159 | Episode Return: 65.840 | Time: 0.078
+
+INFO:root:Train >> Env Steps: 2.48e+07 | Advantage: 0.013 | Critic Loss: 249.951 | Entropy: 0.038 | Entropy Loss: -0.038 | Policy Loss: -0.092 | Steps Per Second: 11,735 | Time: 49.080 | Total Loss: 249.859 | Value: 22.527
+
+INFO:root:Eval Stochastic >> Env Steps: 2.53e+07 | Episode Length: 21.414 | Episode Return: 67.090 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 2.53e+07 | Episode Length: 21.398 | Episode Return: 67.480 | Time: 0.076
+
+INFO:root:Train >> Env Steps: 2.53e+07 | Advantage: -0.024 | Critic Loss: 244.372 | Entropy: 0.040 | Entropy Loss: -0.040 | Policy Loss: -0.082 | Steps Per Second: 11,738 | Time: 49.070 | Total Loss: 244.290 | Value: 22.081
+
+INFO:root:Eval Stochastic >> Env Steps: 2.59e+07 | Episode Length: 21.219 | Episode Return: 66.250 | Time: 0.071
+
+INFO:root:Eval Greedy >> Env Steps: 2.59e+07 | Episode Length: 21.510 | Episode Return: 71.523 | Time: 0.082
+
+INFO:root:Train >> Env Steps: 2.59e+07 | Advantage: -0.008 | Critic Loss: 250.097 | Entropy: 0.037 | Entropy Loss: -0.037 | Policy Loss: -0.098 | Steps Per Second: 11,743 | Time: 49.047 | Total Loss: 249.999 | Value: 22.580
+
+INFO:root:Eval Stochastic >> Env Steps: 2.65e+07 | Episode Length: 21.383 | Episode Return: 66.504 | Time: 0.079
+
+INFO:root:Eval Greedy >> Env Steps: 2.65e+07 | Episode Length: 21.339 | Episode Return: 66.172 | Time: 0.070
+
+INFO:root:Train >> Env Steps: 2.65e+07 | Advantage: 0.004 | Critic Loss: 253.946 | Entropy: 0.042 | Entropy Loss: -0.042 | Policy Loss: -0.106 | Steps Per Second: 11,769 | Time: 48.942 | Total Loss: 253.840 | Value: 22.757
+
+INFO:root:Eval Stochastic >> Env Steps: 2.71e+07 | Episode Length: 21.580 | Episode Return: 68.398 | Time: 0.075
+
+INFO:root:Eval Greedy >> Env Steps: 2.71e+07 | Episode Length: 21.349 | Episode Return: 65.117 | Time: 0.068
+
+INFO:root:Train >> Env Steps: 2.71e+07 | Advantage: 0.008 | Critic Loss: 250.073 | Entropy: 0.038 | Entropy Loss: -0.038 | Policy Loss: -0.096 | Steps Per Second: 11,767 | Time: 48.950 | Total Loss: 249.977 | Value: 22.810
+
+INFO:root:Eval Stochastic >> Env Steps: 2.76e+07 | Episode Length: 21.454 | Episode Return: 68.965 | Time: 0.083
+
+INFO:root:Eval Greedy >> Env Steps: 2.76e+07 | Episode Length: 21.396 | Episode Return: 67.188 | Time: 0.093
+
+INFO:root:Train >> Env Steps: 2.76e+07 | Advantage: -0.000 | Critic Loss: 250.215 | Entropy: 0.036 | Entropy Loss: -0.036 | Policy Loss: -0.090 | Steps Per Second: 11,772 | Time: 48.926 | Total Loss: 250.124 | Value: 22.846
+
+INFO:root:Eval Stochastic >> Env Steps: 2.82e+07 | Episode Length: 21.481 | Episode Return: 68.281 | Time: 0.079
+
+INFO:root:Eval Greedy >> Env Steps: 2.82e+07 | Episode Length: 21.550 | Episode Return: 69.434 | Time: 0.090
+
+INFO:root:Train >> Env Steps: 2.82e+07 | Advantage: -0.011 | Critic Loss: 252.049 | Entropy: 0.036 | Entropy Loss: -0.036 | Policy Loss: -0.087 | Steps Per Second: 11,776 | Time: 48.910 | Total Loss: 251.962 | Value: 22.648
+
+INFO:root:Eval Stochastic >> Env Steps: 2.88e+07 | Episode Length: 21.058 | Episode Return: 65.762 | Time: 0.073
+
+INFO:root:Eval Greedy >> Env Steps: 2.88e+07 | Episode Length: 20.835 | Episode Return: 61.172 | Time: 0.078
+
+INFO:root:Train >> Env Steps: 2.88e+07 | Advantage: 0.008 | Critic Loss: 252.797 | Entropy: 0.040 | Entropy Loss: -0.040 | Policy Loss: -0.101 | Steps Per Second: 11,748 | Time: 49.026 | Total Loss: 252.695 | Value: 22.707
+
+INFO:root:Eval Stochastic >> Env Steps: 2.94e+07 | Episode Length: 21.485 | Episode Return: 67.129 | Time: 0.089
+
+INFO:root:Eval Greedy >> Env Steps: 2.94e+07 | Episode Length: 21.423 | Episode Return: 66.230 | Time: 0.070
+
+INFO:root:Train >> Env Steps: 2.94e+07 | Advantage: 0.013 | Critic Loss: 250.235 | Entropy: 0.036 | Entropy Loss: -0.036 | Policy Loss: -0.087 | Steps Per Second: 11,744 | Time: 49.046 | Total Loss: 250.148 | Value: 22.294
+
+INFO:root:Eval Stochastic >> Env Steps: 3.00e+07 | Episode Length: 21.289 | Episode Return: 66.504 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 3.00e+07 | Episode Length: 21.287 | Episode Return: 66.484 | Time: 0.074
+
+INFO:root:Train >> Env Steps: 3.00e+07 | Advantage: -0.007 | Critic Loss: 250.374 | Entropy: 0.038 | Entropy Loss: -0.038 | Policy Loss: -0.106 | Steps Per Second: 11,751 | Time: 49.014 | Total Loss: 250.268 | Value: 22.752
+
+INFO:root:Eval Stochastic >> Env Steps: 3.05e+07 | Episode Length: 21.593 | Episode Return: 68.945 | Time: 0.079
+
+INFO:root:Eval Greedy >> Env Steps: 3.05e+07 | Episode Length: 21.641 | Episode Return: 68.926 | Time: 0.084
+
+INFO:root:Train >> Env Steps: 3.05e+07 | Advantage: 0.019 | Critic Loss: 256.925 | Entropy: 0.038 | Entropy Loss: -0.038 | Policy Loss: -0.106 | Steps Per Second: 11,525 | Time: 49.974 | Total Loss: 256.819 | Value: 23.258
+
+INFO:root:Eval Stochastic >> Env Steps: 3.11e+07 | Episode Length: 21.526 | Episode Return: 69.961 | Time: 0.071
+
+INFO:root:Eval Greedy >> Env Steps: 3.11e+07 | Episode Length: 21.560 | Episode Return: 70.586 | Time: 0.082
+
+INFO:root:Train >> Env Steps: 3.11e+07 | Advantage: 0.009 | Critic Loss: 253.972 | Entropy: 0.036 | Entropy Loss: -0.036 | Policy Loss: -0.115 | Steps Per Second: 11,755 | Time: 48.997 | Total Loss: 253.856 | Value: 23.320
+
+INFO:root:Eval Stochastic >> Env Steps: 3.17e+07 | Episode Length: 21.438 | Episode Return: 67.734 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 3.17e+07 | Episode Length: 21.564 | Episode Return: 69.785 | Time: 0.074
+
+INFO:root:Train >> Env Steps: 3.17e+07 | Advantage: -0.016 | Critic Loss: 257.673 | Entropy: 0.039 | Entropy Loss: -0.039 | Policy Loss: -0.112 | Steps Per Second: 11,746 | Time: 49.038 | Total Loss: 257.561 | Value: 23.289
+
+INFO:root:Eval Stochastic >> Env Steps: 3.23e+07 | Episode Length: 21.353 | Episode Return: 68.730 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 3.23e+07 | Episode Length: 21.175 | Episode Return: 66.133 | Time: 0.074
+
+INFO:root:Train >> Env Steps: 3.23e+07 | Advantage: 0.015 | Critic Loss: 254.276 | Entropy: 0.036 | Entropy Loss: -0.036 | Policy Loss: -0.099 | Steps Per Second: 11,774 | Time: 48.919 | Total Loss: 254.177 | Value: 22.819
+
+INFO:root:Eval Stochastic >> Env Steps: 3.28e+07 | Episode Length: 21.333 | Episode Return: 67.402 | Time: 0.083
+
+INFO:root:Eval Greedy >> Env Steps: 3.28e+07 | Episode Length: 21.361 | Episode Return: 68.730 | Time: 0.074
+
+INFO:root:Train >> Env Steps: 3.28e+07 | Advantage: 0.003 | Critic Loss: 255.771 | Entropy: 0.037 | Entropy Loss: -0.037 | Policy Loss: -0.087 | Steps Per Second: 11,772 | Time: 48.929 | Total Loss: 255.684 | Value: 22.863
+
+INFO:root:Eval Stochastic >> Env Steps: 3.34e+07 | Episode Length: 21.561 | Episode Return: 70.020 | Time: 0.075
+
+INFO:root:Eval Greedy >> Env Steps: 3.34e+07 | Episode Length: 21.489 | Episode Return: 69.277 | Time: 0.078
+
+INFO:root:Train >> Env Steps: 3.34e+07 | Advantage: -0.008 | Critic Loss: 252.305 | Entropy: 0.036 | Entropy Loss: -0.036 | Policy Loss: -0.084 | Steps Per Second: 11,775 | Time: 48.915 | Total Loss: 252.221 | Value: 22.994
+
+INFO:root:Eval Stochastic >> Env Steps: 3.40e+07 | Episode Length: 21.485 | Episode Return: 69.590 | Time: 0.071
+
+INFO:root:Eval Greedy >> Env Steps: 3.40e+07 | Episode Length: 21.334 | Episode Return: 68.223 | Time: 0.088
+
+INFO:root:Train >> Env Steps: 3.40e+07 | Advantage: -0.003 | Critic Loss: 257.853 | Entropy: 0.037 | Entropy Loss: -0.037 | Policy Loss: -0.078 | Steps Per Second: 11,778 | Time: 48.901 | Total Loss: 257.774 | Value: 23.186
+
+INFO:root:Eval Stochastic >> Env Steps: 3.46e+07 | Episode Length: 21.381 | Episode Return: 66.738 | Time: 0.073
+
+INFO:root:Eval Greedy >> Env Steps: 3.46e+07 | Episode Length: 21.572 | Episode Return: 69.082 | Time: 0.076
+
+INFO:root:Train >> Env Steps: 3.46e+07 | Advantage: 0.015 | Critic Loss: 257.192 | Entropy: 0.037 | Entropy Loss: -0.037 | Policy Loss: -0.091 | Steps Per Second: 11,781 | Time: 48.892 | Total Loss: 257.100 | Value: 22.982
+
+INFO:root:Eval Stochastic >> Env Steps: 3.51e+07 | Episode Length: 21.530 | Episode Return: 69.160 | Time: 0.079
+
+INFO:root:Eval Greedy >> Env Steps: 3.51e+07 | Episode Length: 21.479 | Episode Return: 67.598 | Time: 0.084
+
+INFO:root:Train >> Env Steps: 3.51e+07 | Advantage: -0.009 | Critic Loss: 260.279 | Entropy: 0.033 | Entropy Loss: -0.033 | Policy Loss: -0.088 | Steps Per Second: 11,777 | Time: 48.909 | Total Loss: 260.191 | Value: 23.436
+
+INFO:root:Eval Stochastic >> Env Steps: 3.57e+07 | Episode Length: 21.418 | Episode Return: 72.227 | Time: 0.083
+
+INFO:root:Eval Greedy >> Env Steps: 3.57e+07 | Episode Length: 21.464 | Episode Return: 70.508 | Time: 0.078
+
+INFO:root:Train >> Env Steps: 3.57e+07 | Advantage: 0.005 | Critic Loss: 255.564 | Entropy: 0.034 | Entropy Loss: -0.034 | Policy Loss: -0.086 | Steps Per Second: 11,753 | Time: 49.007 | Total Loss: 255.478 | Value: 23.060
+
+INFO:root:Eval Stochastic >> Env Steps: 3.63e+07 | Episode Length: 21.387 | Episode Return: 67.676 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 3.63e+07 | Episode Length: 21.523 | Episode Return: 71.445 | Time: 0.080
+
+INFO:root:Train >> Env Steps: 3.63e+07 | Advantage: 0.001 | Critic Loss: 251.316 | Entropy: 0.036 | Entropy Loss: -0.036 | Policy Loss: -0.086 | Steps Per Second: 11,748 | Time: 49.027 | Total Loss: 251.230 | Value: 22.684
+
+INFO:root:Eval Stochastic >> Env Steps: 3.69e+07 | Episode Length: 21.430 | Episode Return: 70.020 | Time: 0.089
+
+INFO:root:Eval Greedy >> Env Steps: 3.69e+07 | Episode Length: 21.446 | Episode Return: 69.277 | Time: 0.071
+
+INFO:root:Train >> Env Steps: 3.69e+07 | Advantage: 0.007 | Critic Loss: 255.091 | Entropy: 0.041 | Entropy Loss: -0.041 | Policy Loss: -0.097 | Steps Per Second: 11,751 | Time: 49.016 | Total Loss: 254.994 | Value: 23.273
+
+INFO:root:Eval Stochastic >> Env Steps: 3.74e+07 | Episode Length: 21.260 | Episode Return: 66.172 | Time: 0.087
+
+INFO:root:Eval Greedy >> Env Steps: 3.74e+07 | Episode Length: 21.496 | Episode Return: 69.961 | Time: 0.078
+
+INFO:root:Train >> Env Steps: 3.74e+07 | Advantage: 0.004 | Critic Loss: 260.328 | Entropy: 0.035 | Entropy Loss: -0.035 | Policy Loss: -0.090 | Steps Per Second: 11,766 | Time: 48.953 | Total Loss: 260.238 | Value: 23.619
+
+INFO:root:Eval Stochastic >> Env Steps: 3.80e+07 | Episode Length: 21.388 | Episode Return: 69.863 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 3.80e+07 | Episode Length: 21.232 | Episode Return: 67.168 | Time: 0.078
+
+INFO:root:Train >> Env Steps: 3.80e+07 | Advantage: -0.008 | Critic Loss: 257.724 | Entropy: 0.036 | Entropy Loss: -0.036 | Policy Loss: -0.074 | Steps Per Second: 11,760 | Time: 48.978 | Total Loss: 257.649 | Value: 23.424
+
+INFO:root:Eval Stochastic >> Env Steps: 3.86e+07 | Episode Length: 21.372 | Episode Return: 66.484 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 3.86e+07 | Episode Length: 21.579 | Episode Return: 69.414 | Time: 0.076
+
+INFO:root:Train >> Env Steps: 3.86e+07 | Advantage: 0.020 | Critic Loss: 261.398 | Entropy: 0.033 | Entropy Loss: -0.033 | Policy Loss: -0.076 | Steps Per Second: 11,759 | Time: 48.983 | Total Loss: 261.322 | Value: 23.628
+
+INFO:root:Eval Stochastic >> Env Steps: 3.92e+07 | Episode Length: 21.537 | Episode Return: 72.480 | Time: 0.073
+
+INFO:root:Eval Greedy >> Env Steps: 3.92e+07 | Episode Length: 21.355 | Episode Return: 69.043 | Time: 0.091
+
+INFO:root:Train >> Env Steps: 3.92e+07 | Advantage: 0.003 | Critic Loss: 258.734 | Entropy: 0.035 | Entropy Loss: -0.035 | Policy Loss: -0.074 | Steps Per Second: 11,766 | Time: 48.953 | Total Loss: 258.660 | Value: 23.050
+
+INFO:root:Eval Stochastic >> Env Steps: 3.97e+07 | Episode Length: 21.242 | Episode Return: 68.125 | Time: 0.075
+
+INFO:root:Eval Greedy >> Env Steps: 3.97e+07 | Episode Length: 21.486 | Episode Return: 70.859 | Time: 0.072
+
+INFO:root:Train >> Env Steps: 3.97e+07 | Advantage: -0.014 | Critic Loss: 258.566 | Entropy: 0.034 | Entropy Loss: -0.034 | Policy Loss: -0.086 | Steps Per Second: 11,752 | Time: 49.011 | Total Loss: 258.480 | Value: 23.351
+
+INFO:root:Eval Stochastic >> Env Steps: 4.03e+07 | Episode Length: 21.301 | Episode Return: 66.855 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 4.03e+07 | Episode Length: 21.521 | Episode Return: 71.504 | Time: 0.078
+
+INFO:root:Train >> Env Steps: 4.03e+07 | Advantage: 0.013 | Critic Loss: 257.315 | Entropy: 0.031 | Entropy Loss: -0.031 | Policy Loss: -0.075 | Steps Per Second: 11,762 | Time: 48.969 | Total Loss: 257.239 | Value: 23.382
+
+INFO:root:Eval Stochastic >> Env Steps: 4.09e+07 | Episode Length: 21.552 | Episode Return: 70.820 | Time: 0.079
+
+INFO:root:Eval Greedy >> Env Steps: 4.09e+07 | Episode Length: 21.455 | Episode Return: 70.781 | Time: 0.078
+
+INFO:root:Train >> Env Steps: 4.09e+07 | Advantage: 0.006 | Critic Loss: 257.322 | Entropy: 0.027 | Entropy Loss: -0.027 | Policy Loss: -0.072 | Steps Per Second: 11,748 | Time: 49.027 | Total Loss: 257.249 | Value: 23.166
+
+INFO:root:Eval Stochastic >> Env Steps: 4.15e+07 | Episode Length: 21.312 | Episode Return: 69.297 | Time: 0.089
+
+INFO:root:Eval Greedy >> Env Steps: 4.15e+07 | Episode Length: 21.219 | Episode Return: 67.832 | Time: 0.068
+
+INFO:root:Train >> Env Steps: 4.15e+07 | Advantage: -0.002 | Critic Loss: 260.708 | Entropy: 0.027 | Entropy Loss: -0.027 | Policy Loss: -0.071 | Steps Per Second: 11,771 | Time: 48.930 | Total Loss: 260.636 | Value: 23.697
+
+INFO:root:Eval Stochastic >> Env Steps: 4.20e+07 | Episode Length: 21.239 | Episode Return: 66.250 | Time: 0.081
+
+INFO:root:Eval Greedy >> Env Steps: 4.20e+07 | Episode Length: 21.412 | Episode Return: 66.992 | Time: 0.072
+
+INFO:root:Train >> Env Steps: 4.20e+07 | Advantage: -0.002 | Critic Loss: 257.901 | Entropy: 0.031 | Entropy Loss: -0.031 | Policy Loss: -0.069 | Steps Per Second: 11,784 | Time: 48.879 | Total Loss: 257.831 | Value: 23.037
+
+INFO:root:Eval Stochastic >> Env Steps: 4.26e+07 | Episode Length: 21.276 | Episode Return: 65.742 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 4.26e+07 | Episode Length: 21.511 | Episode Return: 69.570 | Time: 0.090
+
+INFO:root:Train >> Env Steps: 4.26e+07 | Advantage: -0.007 | Critic Loss: 258.579 | Entropy: 0.034 | Entropy Loss: -0.034 | Policy Loss: -0.072 | Steps Per Second: 11,779 | Time: 48.901 | Total Loss: 258.507 | Value: 23.163
+
+INFO:root:Eval Stochastic >> Env Steps: 4.32e+07 | Episode Length: 21.345 | Episode Return: 68.457 | Time: 0.071
+
+INFO:root:Eval Greedy >> Env Steps: 4.32e+07 | Episode Length: 21.592 | Episode Return: 71.094 | Time: 0.080
+
+INFO:root:Train >> Env Steps: 4.32e+07 | Advantage: -0.015 | Critic Loss: 258.679 | Entropy: 0.032 | Entropy Loss: -0.032 | Policy Loss: -0.082 | Steps Per Second: 11,754 | Time: 49.002 | Total Loss: 258.597 | Value: 23.243
+
+INFO:root:Eval Stochastic >> Env Steps: 4.38e+07 | Episode Length: 21.377 | Episode Return: 69.043 | Time: 0.073
+
+INFO:root:Eval Greedy >> Env Steps: 4.38e+07 | Episode Length: 21.508 | Episode Return: 70.605 | Time: 0.070
+
+INFO:root:Train >> Env Steps: 4.38e+07 | Advantage: 0.027 | Critic Loss: 259.383 | Entropy: 0.034 | Entropy Loss: -0.034 | Policy Loss: -0.081 | Steps Per Second: 11,788 | Time: 48.861 | Total Loss: 259.302 | Value: 23.170
+
+INFO:root:Eval Stochastic >> Env Steps: 4.44e+07 | Episode Length: 21.438 | Episode Return: 69.180 | Time: 0.085
+
+INFO:root:Eval Greedy >> Env Steps: 4.44e+07 | Episode Length: 21.587 | Episode Return: 71.230 | Time: 0.080
+
+INFO:root:Train >> Env Steps: 4.44e+07 | Advantage: -0.006 | Critic Loss: 257.129 | Entropy: 0.033 | Entropy Loss: -0.033 | Policy Loss: -0.081 | Steps Per Second: 11,779 | Time: 48.899 | Total Loss: 257.048 | Value: 23.289
+
+INFO:root:Eval Stochastic >> Env Steps: 4.49e+07 | Episode Length: 21.245 | Episode Return: 68.320 | Time: 0.075
+
+INFO:root:Eval Greedy >> Env Steps: 4.49e+07 | Episode Length: 21.282 | Episode Return: 67.910 | Time: 0.080
+
+INFO:root:Train >> Env Steps: 4.49e+07 | Advantage: -0.015 | Critic Loss: 255.835 | Entropy: 0.032 | Entropy Loss: -0.032 | Policy Loss: -0.086 | Steps Per Second: 11,785 | Time: 48.872 | Total Loss: 255.749 | Value: 23.282
+
+INFO:root:Eval Stochastic >> Env Steps: 4.55e+07 | Episode Length: 21.531 | Episode Return: 71.270 | Time: 0.085
+
+INFO:root:Eval Greedy >> Env Steps: 4.55e+07 | Episode Length: 21.424 | Episode Return: 69.609 | Time: 0.080
+
+INFO:root:Train >> Env Steps: 4.55e+07 | Advantage: 0.032 | Critic Loss: 257.098 | Entropy: 0.037 | Entropy Loss: -0.037 | Policy Loss: -0.091 | Steps Per Second: 11,781 | Time: 48.891 | Total Loss: 257.007 | Value: 23.114
+
+INFO:root:Eval Stochastic >> Env Steps: 4.61e+07 | Episode Length: 21.542 | Episode Return: 68.555 | Time: 0.073
+
+INFO:root:Eval Greedy >> Env Steps: 4.61e+07 | Episode Length: 21.676 | Episode Return: 70.488 | Time: 0.076
+
+INFO:root:Train >> Env Steps: 4.61e+07 | Advantage: -0.001 | Critic Loss: 263.962 | Entropy: 0.035 | Entropy Loss: -0.035 | Policy Loss: -0.075 | Steps Per Second: 11,777 | Time: 48.906 | Total Loss: 263.887 | Value: 23.382
+
+INFO:root:Eval Stochastic >> Env Steps: 4.67e+07 | Episode Length: 21.441 | Episode Return: 68.164 | Time: 0.075
+
+INFO:root:Eval Greedy >> Env Steps: 4.67e+07 | Episode Length: 21.495 | Episode Return: 69.668 | Time: 0.086
+
+INFO:root:Train >> Env Steps: 4.67e+07 | Advantage: -0.007 | Critic Loss: 260.240 | Entropy: 0.033 | Entropy Loss: -0.033 | Policy Loss: -0.078 | Steps Per Second: 11,780 | Time: 48.896 | Total Loss: 260.163 | Value: 23.705
+
+INFO:root:Eval Stochastic >> Env Steps: 4.72e+07 | Episode Length: 21.643 | Episode Return: 72.793 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 4.72e+07 | Episode Length: 21.516 | Episode Return: 70.059 | Time: 0.072
+
+INFO:root:Train >> Env Steps: 4.72e+07 | Advantage: -0.004 | Critic Loss: 256.513 | Entropy: 0.031 | Entropy Loss: -0.031 | Policy Loss: -0.071 | Steps Per Second: 11,781 | Time: 48.890 | Total Loss: 256.441 | Value: 23.113
+
+INFO:root:Eval Stochastic >> Env Steps: 4.78e+07 | Episode Length: 21.365 | Episode Return: 66.992 | Time: 0.083
+
+INFO:root:Eval Greedy >> Env Steps: 4.78e+07 | Episode Length: 21.581 | Episode Return: 70.664 | Time: 0.090
+
+INFO:root:Train >> Env Steps: 4.78e+07 | Advantage: 0.000 | Critic Loss: 259.524 | Entropy: 0.028 | Entropy Loss: -0.028 | Policy Loss: -0.074 | Steps Per Second: 11,753 | Time: 49.006 | Total Loss: 259.449 | Value: 23.338
+
+INFO:root:Eval Stochastic >> Env Steps: 4.84e+07 | Episode Length: 21.702 | Episode Return: 69.590 | Time: 0.083
+
+INFO:root:Eval Greedy >> Env Steps: 4.84e+07 | Episode Length: 21.632 | Episode Return: 69.512 | Time: 0.082
+
+INFO:root:Train >> Env Steps: 4.84e+07 | Advantage: 0.006 | Critic Loss: 256.316 | Entropy: 0.031 | Entropy Loss: -0.031 | Policy Loss: -0.063 | Steps Per Second: 11,745 | Time: 49.038 | Total Loss: 256.252 | Value: 22.616
+
+INFO:root:Eval Stochastic >> Env Steps: 4.90e+07 | Episode Length: 21.539 | Episode Return: 70.312 | Time: 0.096
+
+INFO:root:Eval Greedy >> Env Steps: 4.90e+07 | Episode Length: 21.652 | Episode Return: 71.758 | Time: 0.074
+
+INFO:root:Train >> Env Steps: 4.90e+07 | Advantage: 0.019 | Critic Loss: 263.614 | Entropy: 0.027 | Entropy Loss: -0.027 | Policy Loss: -0.057 | Steps Per Second: 11,745 | Time: 49.038 | Total Loss: 263.557 | Value: 23.553
+
+INFO:root:Eval Stochastic >> Env Steps: 4.95e+07 | Episode Length: 21.504 | Episode Return: 70.566 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 4.95e+07 | Episode Length: 21.689 | Episode Return: 73.086 | Time: 0.072
+
+INFO:root:Train >> Env Steps: 4.95e+07 | Advantage: 0.014 | Critic Loss: 267.401 | Entropy: 0.029 | Entropy Loss: -0.029 | Policy Loss: -0.068 | Steps Per Second: 11,742 | Time: 49.053 | Total Loss: 267.332 | Value: 24.036
+
+INFO:root:Eval Stochastic >> Env Steps: 5.01e+07 | Episode Length: 21.707 | Episode Return: 70.742 | Time: 0.081
+
+INFO:root:Eval Greedy >> Env Steps: 5.01e+07 | Episode Length: 21.793 | Episode Return: 70.918 | Time: 0.080
+
+INFO:root:Train >> Env Steps: 5.01e+07 | Advantage: -0.018 | Critic Loss: 266.677 | Entropy: 0.027 | Entropy Loss: -0.027 | Policy Loss: -0.070 | Steps Per Second: 11,773 | Time: 48.925 | Total Loss: 266.607 | Value: 24.060
+
+INFO:root:Eval Stochastic >> Env Steps: 5.07e+07 | Episode Length: 21.660 | Episode Return: 74.023 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 5.07e+07 | Episode Length: 21.302 | Episode Return: 67.168 | Time: 0.076
+
+INFO:root:Train >> Env Steps: 5.07e+07 | Advantage: 0.018 | Critic Loss: 264.177 | Entropy: 0.027 | Entropy Loss: -0.027 | Policy Loss: -0.061 | Steps Per Second: 11,778 | Time: 48.904 | Total Loss: 264.116 | Value: 23.662
+
+INFO:root:Eval Stochastic >> Env Steps: 5.13e+07 | Episode Length: 21.558 | Episode Return: 71.172 | Time: 0.085
+
+INFO:root:Eval Greedy >> Env Steps: 5.13e+07 | Episode Length: 21.639 | Episode Return: 71.641 | Time: 0.086
+
+INFO:root:Train >> Env Steps: 5.13e+07 | Advantage: -0.050 | Critic Loss: 263.562 | Entropy: 0.027 | Entropy Loss: -0.027 | Policy Loss: -0.056 | Steps Per Second: 11,774 | Time: 48.920 | Total Loss: 263.506 | Value: 23.273
+
+INFO:root:Eval Stochastic >> Env Steps: 5.18e+07 | Episode Length: 21.553 | Episode Return: 66.777 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 5.18e+07 | Episode Length: 21.473 | Episode Return: 66.855 | Time: 0.090
+
+INFO:root:Train >> Env Steps: 5.18e+07 | Advantage: 0.011 | Critic Loss: 260.254 | Entropy: 0.027 | Entropy Loss: -0.027 | Policy Loss: -0.057 | Steps Per Second: 11,774 | Time: 48.921 | Total Loss: 260.197 | Value: 22.657
+
+INFO:root:Eval Stochastic >> Env Steps: 5.24e+07 | Episode Length: 21.522 | Episode Return: 70.117 | Time: 0.085
+
+INFO:root:Eval Greedy >> Env Steps: 5.24e+07 | Episode Length: 21.337 | Episode Return: 66.211 | Time: 0.072
+
+INFO:root:Train >> Env Steps: 5.24e+07 | Advantage: 0.015 | Critic Loss: 263.919 | Entropy: 0.029 | Entropy Loss: -0.029 | Policy Loss: -0.073 | Steps Per Second: 11,744 | Time: 49.043 | Total Loss: 263.845 | Value: 23.174
+
+INFO:root:Eval Stochastic >> Env Steps: 5.30e+07 | Episode Length: 21.385 | Episode Return: 67.266 | Time: 0.071
+
+INFO:root:Eval Greedy >> Env Steps: 5.30e+07 | Episode Length: 21.268 | Episode Return: 66.387 | Time: 0.074
+
+INFO:root:Train >> Env Steps: 5.30e+07 | Advantage: 0.025 | Critic Loss: 259.739 | Entropy: 0.029 | Entropy Loss: -0.029 | Policy Loss: -0.064 | Steps Per Second: 11,754 | Time: 49.004 | Total Loss: 259.674 | Value: 23.208
+
+INFO:root:Eval Stochastic >> Env Steps: 5.36e+07 | Episode Length: 21.584 | Episode Return: 73.008 | Time: 0.075
+
+INFO:root:Eval Greedy >> Env Steps: 5.36e+07 | Episode Length: 21.445 | Episode Return: 68.809 | Time: 0.078
+
+INFO:root:Train >> Env Steps: 5.36e+07 | Advantage: -0.009 | Critic Loss: 260.971 | Entropy: 0.027 | Entropy Loss: -0.027 | Policy Loss: -0.078 | Steps Per Second: 11,748 | Time: 49.026 | Total Loss: 260.893 | Value: 23.757
+
+INFO:root:Eval Stochastic >> Env Steps: 5.41e+07 | Episode Length: 21.393 | Episode Return: 69.180 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 5.41e+07 | Episode Length: 21.372 | Episode Return: 68.262 | Time: 0.070
+
+INFO:root:Train >> Env Steps: 5.41e+07 | Advantage: 0.010 | Critic Loss: 257.464 | Entropy: 0.029 | Entropy Loss: -0.029 | Policy Loss: -0.081 | Steps Per Second: 11,753 | Time: 49.006 | Total Loss: 257.383 | Value: 23.224
+
+INFO:root:Eval Stochastic >> Env Steps: 5.47e+07 | Episode Length: 21.470 | Episode Return: 70.996 | Time: 0.079
+
+INFO:root:Eval Greedy >> Env Steps: 5.47e+07 | Episode Length: 21.404 | Episode Return: 70.000 | Time: 0.070
+
+INFO:root:Train >> Env Steps: 5.47e+07 | Advantage: -0.002 | Critic Loss: 263.098 | Entropy: 0.025 | Entropy Loss: -0.025 | Policy Loss: -0.057 | Steps Per Second: 11,751 | Time: 49.016 | Total Loss: 263.041 | Value: 23.849
+
+INFO:root:Eval Stochastic >> Env Steps: 5.53e+07 | Episode Length: 21.588 | Episode Return: 71.992 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 5.53e+07 | Episode Length: 21.559 | Episode Return: 72.148 | Time: 0.080
+
+INFO:root:Train >> Env Steps: 5.53e+07 | Advantage: -0.000 | Critic Loss: 264.426 | Entropy: 0.026 | Entropy Loss: -0.026 | Policy Loss: -0.053 | Steps Per Second: 11,753 | Time: 49.005 | Total Loss: 264.373 | Value: 23.551
+
+INFO:root:Eval Stochastic >> Env Steps: 5.59e+07 | Episode Length: 21.359 | Episode Return: 69.629 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 5.59e+07 | Episode Length: 21.179 | Episode Return: 68.242 | Time: 0.076
+
+INFO:root:Train >> Env Steps: 5.59e+07 | Advantage: -0.000 | Critic Loss: 258.273 | Entropy: 0.031 | Entropy Loss: -0.031 | Policy Loss: -0.068 | Steps Per Second: 11,767 | Time: 48.947 | Total Loss: 258.205 | Value: 23.285
+
+INFO:root:Eval Stochastic >> Env Steps: 5.64e+07 | Episode Length: 21.644 | Episode Return: 71.387 | Time: 0.075
+
+INFO:root:Eval Greedy >> Env Steps: 5.64e+07 | Episode Length: 21.528 | Episode Return: 69.434 | Time: 0.080
+
+INFO:root:Train >> Env Steps: 5.64e+07 | Advantage: 0.006 | Critic Loss: 264.734 | Entropy: 0.035 | Entropy Loss: -0.035 | Policy Loss: -0.074 | Steps Per Second: 11,778 | Time: 48.903 | Total Loss: 264.659 | Value: 23.977
+
+INFO:root:Eval Stochastic >> Env Steps: 5.70e+07 | Episode Length: 21.625 | Episode Return: 72.930 | Time: 0.077
+
+INFO:root:Eval Greedy >> Env Steps: 5.70e+07 | Episode Length: 21.396 | Episode Return: 69.844 | Time: 0.070
+
+INFO:root:Train >> Env Steps: 5.70e+07 | Advantage: -0.005 | Critic Loss: 261.825 | Entropy: 0.029 | Entropy Loss: -0.029 | Policy Loss: -0.070 | Steps Per Second: 11,739 | Time: 49.067 | Total Loss: 261.754 | Value: 24.317
+
+INFO:root:Saving checkpoint...
+
+INFO:root:Checkpoint saved at 'training_state'.
+
+INFO:root:Closing logger...
