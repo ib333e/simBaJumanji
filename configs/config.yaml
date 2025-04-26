@@ -1,0 +1,37 @@
+# General settings
+seed: 42
+num_train_envs: 1
+mixed_precision: false
+
+# Environment settings
+env:
+  name: "Tetris-v0"  # Jumanji environment
+  max_episode_steps: 1000
+  normalize_observation: true
+
+# Actor network settings
+actor:
+  block_type: "mlp"
+  num_blocks: 2
+  hidden_dim: 256
+  learning_rate: 3e-4
+  weight_decay: 1e-4
+
+# Critic network settings
+critic:
+  block_type: "mlp"
+  num_blocks: 2
+  hidden_dim: 256
+  learning_rate: 3e-4
+  weight_decay: 1e-4
+
+# Training settings
+training:
+  total_steps: 1000000
+  update_interval: 2048  # Update every 2048 steps
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_ratio: 0.2
+  entropy_coef: 0.01
+  value_loss_coef: 0.5
+  max_grad_norm: 0.5 
