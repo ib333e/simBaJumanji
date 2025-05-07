@@ -24,3 +24,12 @@ a2c:
     l_td: 1.0
     l_en: 0.01
     learning_rate: 3e-4
+
+a2c_simba:
+    normalize_advantage: False
+    discount_factor: 0.99
+    bootstrapping_factor: 0.95
+    l_pg: 1.0
+    l_td: 1.0
+    l_en: 0.01
+    learning_rate: 3e-4

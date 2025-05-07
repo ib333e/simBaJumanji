@@ -102,6 +102,29 @@ def setup_env(cfg: DictConfig) -> Environment:
     env = VmapAutoResetWrapper(env)
     return env
 
+def _setup_actor_critic_neworks_simba(cfg: DictConfig, env: Environment) -> ActorCriticNetworks:
+    assert cfg.agent == "a2c_simba"
+    if cfg.env.name == "tetris":
+        assert isinstance(env.unwrapped, Tetris)
+        print('Inside _setup_actor_critic_neworks_simba')
+        actor_critic_networks = networks.make_actor_critic_tetris_simba(
+            tetris=env.unwrapped,
+            conv_num_channels=cfg.env.network.conv_num_channels,
+            tetromino_layers=cfg.env.network.tetromino_layers,
+            head_layers=cfg.env.network.head_layers,
+        )
+    elif cfg.env.name == "rubiks_cube":
+        assert isinstance(env.unwrapped, RubiksCube)
+        print('Setting up simba networks for rubiks cube')
+        actor_critic_networks = networks.rubiks_cube.make_actor_critic_rubiks_cube_simba(
+            rubiks_cube=env.unwrapped,
+            cube_embed_dim=cfg.env.network.cube_embed_dims,
+            step_count_embed_dim=cfg.env.network.step_count_embed_dims,
+            dense_layer_dims=cfg.env.network.dense_layer_dims,
+        )
+    else:
+        raise ValueError(f"Environment name not found. Got {cfg.env.name}.")
+    return actor_critic_networks
 
 def setup_agent(cfg: DictConfig, env: Environment) -> Agent:
     agent: Agent
@@ -463,6 +486,15 @@ def _setup_actor_critic_neworks_simba(cfg: DictConfig, env: Environment) -> Acto
             conv_num_channels=cfg.env.network.conv_num_channels,
             tetromino_layers=cfg.env.network.tetromino_layers,
             head_layers=cfg.env.network.head_layers,
+        )
+    elif cfg.env.name == "rubiks_cube":
+        assert isinstance(env.unwrapped, RubiksCube)
+        print('Setting up simba networks for rubiks cube')
+        actor_critic_networks = networks.make_actor_critic_rubiks_cube_simba(
+            rubiks_cube=env.unwrapped,
+            cube_embed_dim=cfg.env.network.cube_embed_dims,
+            step_count_embed_dim=cfg.env.network.step_count_embed_dims,
+            dense_layer_dims=cfg.env.network.dense_layer_dims,
         )
     else:
         raise ValueError(f"Environment name not found. Got {cfg.env.name}.")
